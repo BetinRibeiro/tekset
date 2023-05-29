@@ -1,0 +1,53 @@
+{{extend 'layout.html'}}
+ <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>PÁGINA</th>
+                  <th colspan="3">AÇÕES CORRETIVAS / PREVENTIVAS (CAPA)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Cód. Referência </td>
+                  <td>Identificação do Sistema</td>
+                  <td colspan="2">Controle de Mudança</td>
+                </tr>
+                <tr>
+                  <td>20230514365</td>
+                  <td>Teste</td>
+                  <td colspan="2">na</td>
+                </tr>
+                <tr>
+                  <td colspan="4">Descrição da causa raiz:</td>
+                </tr>
+                <tr>
+                  <td colspan="5">Teste de vsc</td>
+                </tr>
+                <tr>
+                  <td>Avaliação da eficácia:</td>
+                  <td>Data de avaliação da eficácia</td>
+                  <td colspan="2">Responsável pela avaliação</td>
+                </tr>
+                <tr>
+                  <td>N/D</td>
+                  <td>11/05/2023</td>
+                  <td colspan="2">Leonardo</td>
+                </tr>
+                <tr>
+                  <td colspan="4">E-mail do avaliador:</td>
+                </tr>
+                <tr>
+                  <td colspan="5"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

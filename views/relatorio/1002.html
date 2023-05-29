@@ -1,0 +1,57 @@
+{{extend 'layout.html'}}
+
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-sm table-striped table-borderless table-bordered">
+              <thead>
+                <tr>
+                  <th colspan="3" class="text-center">REGISTRO DE MUDANÇAS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Cód. Referência</b></td>
+                  <td><b>Identificação do Sistema</b></td>
+                  <td><b>Registro de mudança</b></td>
+                </tr>
+                <tr>
+                  <td>{{=registro_atividade.referencia}}</td>
+                  <td>{{=registro_atividade.sistema.nome}}</td>
+                  <td>{{=registro_atividade.registro_mudanca}}</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><b>Motivo da mudança:</b></td>
+                </tr>
+                <tr>
+                  <td colspan="3">{{=registro_atividade.motivo}}</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><b>Procedimento de Implantação</b></td>
+                </tr>
+                <tr>
+                  <td colspan="3">{{=registro_atividade.procedimento_implantacao}}</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><b>Análise Critica em BPF</b></td>
+                </tr>
+                <tr>
+                  <td colspan="3">{{=registro_atividade.analise_critica}}</td>
+                </tr>
+                <tr>
+                  <td><b>Data de abertura</b></td>
+                    <td colspan="2"><b>Eficácia:</b></td>
+                </tr>
+                <tr>
+                  <td>{{=registro_atividade.data_final}}</td>
+                  <td colspan="2">{{=registro_atividade.eficaz}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,51 @@
+# -*- coding: utf-8 -*-
+lista_perguntas = ["O Sistema armazena dados que impliquem na rastreabilidade de produtos ?",
+"Gerencia a operação automatizada de equipamentos produtivos críticos ou de laboratórios individualmente (ex. compressoras, secadores de leito fluidizado, HPLC, dissolutores, etc.)?",
+"Gerencia a operação automatizada da geração de utilidades críticas (ex. água purificada, ar condicionado, ar puro, água para injetáveis, etc.)?",
+"Gerencia o cadastramento de apresentações, dosagens, matérias primas, embalagens, potências, tamanho de lotes, etapas de produção, fórmulas mestras, etc.?",
+"Gerencia planejamento de Produção (ex. ordens de produção, números de lote, matérias primas, embalagens, etc.)?",
+"Gerencia processo de compras de materiais (ex. qualificação de fornecedores, controle de pedidos de fornecedores previamente qualificados, quantidades, potências, especificações, etc.)?",
+"Gerencia recebimento de materiais (ex. número de lotes, plano de amostragem, condições físicas, registro de avarias, etc.)?",
+"Gerencia armazenamento de materiais (ex. status, endereçamento, movimentações e transferências, recolhimentos, etc.)?",
+"Gerencia central de pesagem (ex. ordens de pesagem, potências, fracionamento, recipientes, balanças, etiquetas e lacres, resultados das pesagens, operadores, lotes de produtos, lotes de materiais, etc.)?",
+"Gerencia controle de produção (ex. ordens de fabricação, controles em processo, registros, operadores, materiais, números de lotes, equipamentos utilizados, sequências de utilização e operação, alarmes, amostras, etc.)?",
+"Gerencia serviço de atendimento ao cliente (ex. reclamações, ações, eventos adversos, etc.)?",
+"Gerencia documentação (ex. emissão, distribuição, revisão, controle de versões obsoletas, treinamento, etc.)?",
+"Gerencia sistemas de qualidade (ex. resultados fora de especificação, auto-inspeção, desvios, controle de mudanças, registros de resultados de análise de matéria prima, embalagem ou produtos, revisão periódica, etc.)?",
+"Gerencia programa de treinamento (ex. escopo, instrutores, listas de presença, certificados, etc.)?",
+"Gerencia equipamentos (ex. plano e execução de manutenção, plano e execução de calibração, plano e execução de qualificação, etc.)?"]
+
+db.sistema.p01.label = lista_perguntas[0]
+db.sistema.p02.label = lista_perguntas[1]
+db.sistema.p03.label = lista_perguntas[2]
+db.sistema.p04.label = lista_perguntas[3]
+db.sistema.p05.label = lista_perguntas[4]
+db.sistema.p06.label = lista_perguntas[5]
+db.sistema.p07.label = lista_perguntas[6]
+db.sistema.p08.label = lista_perguntas[7]
+db.sistema.p09.label = lista_perguntas[8]
+db.sistema.p10.label = lista_perguntas[9]
+db.sistema.p11.label = lista_perguntas[10]
+db.sistema.p12.label = lista_perguntas[11]
+db.sistema.p13.label = lista_perguntas[12]
+db.sistema.p14.label = lista_perguntas[13]
+db.sistema.p15.label = lista_perguntas[14]
+
+
+def libera_perguntas():
+    db.sistema.p01.writable=True
+    db.sistema.p02.writable=True
+    db.sistema.p03.writable=True
+    db.sistema.p04.writable=True
+    db.sistema.p05.writable=True
+    db.sistema.p06.writable=True
+    db.sistema.p07.writable=True
+    db.sistema.p08.writable=True
+    db.sistema.p09.writable=True
+    db.sistema.p10.writable=True
+    db.sistema.p11.writable=True
+    db.sistema.p12.writable=True
+    db.sistema.p13.writable=True
+    db.sistema.p14.writable=True
+    db.sistema.p15.writable=True
+    return True

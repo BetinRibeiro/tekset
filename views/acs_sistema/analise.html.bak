@@ -1,0 +1,159 @@
+{{extend 'layout.html'}}
+{{lista_referencia=["p01","p02","p03","p04","p05","p06","p07","p08","p09","p10","p11","p12","p13","p14","p15"]}}
+{{a=0}}
+{{sistema.necessidade_validacao="NÃO NECESSIDADE DE VALIDAÇÃO"}}
+{{for row in lista_referencia:}}
+    {{if 'S' in sistema.get(lista_referencia[a]):}}
+        {{sistema.necessidade_validacao="VALIDAR"}}
+        {{sistema.update_record()}}
+        {{break}}
+    {{pass}}
+    {{a+=1}}
+{{pass}}
+
+<div class="bg-light rounded">
+            <div class="d-flex align-items-center justify-content-between mb-4 text-center" >
+                <h6 class="mb-0"  id="noprint">{{=sistema.nome}}</h6>
+                 <a class="btn btn-success text-white my-1" onClick="window.print()">
+                    <i class="fa fa-fw fa-print" ></i>
+                    Imprimir
+                </a>
+        </div>
+
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-bordered table-sm table-striped ">
+              <thead class="t">
+                <tr>
+                  <th colspan="4">Nº Registro: 13</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>Cód. Referência:</th>
+                  <th>Identificação do Sistema:</th>
+                  <th>Versão:</th>
+                  <th>Versão Atual:</th>
+                </tr>
+                <tr>
+                  <td>{{=sistema.referencia}}</td>
+                  <td>{{=sistema.nome}}</td>
+                  <td>{{=sistema.versao}}</td>
+                  <td>{{=sistema.versao_atual}}</td>
+                 </tr>
+                <tr>
+                  <th colspan="4">Fornecedor:</th>
+                </tr>
+                <tr>
+                  <td colspan="4">{{=sistema.fornecedor}}</td>
+                <tr>
+                  <th colspan="4">Equipamento:</th>
+                </tr>
+                <tr>
+                  <td colspan="4">{{=sistema.equipamento}}</td>
+                </tr>
+                <tr>
+                  <th colspan="2">TAG:</th>
+                  <th colspan="2">SETOR:</th>
+                </tr>
+                <tr>
+                  <td colspan="2">{{=sistema.tag}}</td>
+                      <td colspan="2">{{=sistema.setor}}</td>
+                </tr>
+                <tr>
+                  <th colspan="2">Dono do sistema:</th>
+                  <th colspan="2">Dono do processo:</th>
+                </tr>
+                <tr>
+                  <td colspan="2">{{=sistema.dono_sistema}}</td>
+                  <td colspan="2">{{=sistema.dono_processo}}</td>
+                </tr>
+                <tr>
+                  <th colspan="2">Classificação do Software:</th>
+                  <th colspan="2">Classificação do hardware:</th>
+                </tr>
+                <tr>
+                  <td colspan="2">{{=sistema.classificacao_software}}</td>
+                  <td colspan="2">{{=sistema.classificacao_hardware}}</td>
+                </tr>
+                <tr>
+                  <th>Status do sistema:</th>
+                  <th>Status da VSC:</th>
+                  <th>Tipo de sistema:</th>
+                  <th>Tipo de Validação</th>
+                </tr>
+                <tr>
+                  <td>{{=sistema.status_sistema}}</td>
+                  <td>{{=sistema.status_validacao}}</td>
+                  <td>{{=sistema.tipo_sistema}}</td>
+                  <td>{{=sistema.tipo_validacao}}</td>
+                </tr>
+                <tr>
+                  <th>Cntrole de acesso</th>
+                  <th>Trilha de auditoria</th>
+                  <th>Interface</th>
+                  <th>Validável</th>
+                </tr>
+                <tr>
+                  <td>{{=sistema.controle_acesso}}</td>
+                  <td>{{=sistema.trilha_auditoria}}</td>
+                  <td>{{=sistema.interface_externa}}</td>
+                  <td>{{=sistema.possibilidade_validacao}}</td>
+                </tr>
+                <tr>
+                  <th>N° de usuários</th>
+                  <th>Impacto na qualidade</th>
+                  <th>Poss. de validação</th>
+                  <th>Data do relatório</th>
+                </tr>
+                <tr>
+                  <td>{{=sistema.quantidade_usuarios}}</td>
+                  <td>{{=sistema.impacto}}</td>
+                  <td>{{=sistema.necessidade_validacao}}</td>
+                  <td>{{=sistema.data_relatorio.strftime('%d/%m/%Y')}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    
+    
+        <div class="table-responsive">
+            <table class="table table-bordered table-sm">
+                <thead>
+                    <tr class="text-dark">
+                        <th scope="col">{{=sistema.necessidade_validacao}}</th>
+                        <th scope="col">Nome</th>
+                        <th id="noprint" class="text-right">Acessar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{a=0}}
+                        {{for row in lista_perguntas:}}
+                    {{if 'N' in sistema.get(lista_referencia[a]):}}
+                    <tr class="text-danger">
+                    {{else:}}
+                    <tr class="text-success">
+                    {{pass}}
+                    <td>{{=row}}</td>
+                    <td>{{=sistema.get(lista_referencia[a])}}</td>
+                    <th id="noprint" class="text-right">
+                        {{if 'N' in sistema.get(lista_referencia[a]):}}
+                        <a href="{{=URL('mudat_status',args=[sistema.id,lista_referencia[a]])}}">
+                            <i class="fa fa-fw fa-1x py-1 fa-circle text-danger"></i>
+                        </a>
+                        {{else:}}
+                        <a href="{{=URL('mudat_status',args=[sistema.id,lista_referencia[a]])}}">
+                            <i class="fa fa-fw fa-1x py-1 fa-circle text-success"></i>
+                        </a> 
+                       {{pass}}
+                    </th>
+                        {{a+=1}}
+                        {{pass}}
+                </tbody>
+            </table>
+        </div>
+    </div>

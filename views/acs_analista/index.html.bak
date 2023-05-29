@@ -1,0 +1,158 @@
+{{extend 'layout.html'}}
+
+<div class="bg-light rounded p-4">
+    <div class="d-flex align-items-center justify-content-between mb-4 text-center">
+        <h6 class="mb-0">{{=total}} Registros de {{=auth.user.first_name}} {{=auth.user.last_name}} ({{=pagina}}/{{=paginas}} Páginas)</h6>
+    </div>
+    <div class="row">
+    <div class="col-md-6">
+<!--         <h5 class="text-left my-2">Pagina {{=pagina}}/{{=paginas}}</h5> -->
+    </div>
+    <div class="col-md-6" id="noprint">
+            {{if True:}}
+                <ul class="pagination m-2  justify-content-end">
+                    {{ if pagina != 1: }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ =URL(args=1)}}">
+                            <i class="fa fa-angle-double-left"></i>
+                        </a>
+                    </li>
+                      {{ pass }}
+                       {{ if (paginas-pagina) > -3 and (pagina > 3)  : }}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ =URL(args=pagina-3)}}">{{=pagina-3}}</a>
+                    </li>
+                       {{ pass }}
+                       {{ if (paginas-pagina) > -2 and (pagina > 2) : }}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ =URL(args=pagina-2)}}">{{=pagina-2}}</a>
+                    </li>
+                       {{ pass }}
+                       {{ if (paginas-pagina) > -1 and (pagina != 1) : }}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ =URL(args=pagina-1)}}">{{=pagina-1}}</a>
+                    </li>
+                       {{ pass }}
+                    {{ if (paginas) > 1: }}
+                    <li class="page-item active">
+                        <a class="page-link" href="#">{{=pagina}}</a>
+                    </li>
+                       {{ pass }}
+                    {{ if (paginas-pagina) > 0: }}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ =URL(args=pagina+1)}}">{{=pagina+1}}</a>
+                    </li>
+                       {{ pass }}
+                    {{ if (paginas-pagina) > 1: }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ =URL(args=pagina+2)}}">{{=pagina+2}}</a>
+                    </li>
+                        {{ pass }}
+                    {{ if (paginas-pagina) > 2: }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ =URL(args=pagina+3)}}">{{=pagina+3}}</a>
+                    </li>
+                      {{ pass }}
+                    {{ if pagina != paginas: }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ =URL(args=paginas)}}">
+                            <i class="fa fa-angle-double-right"></i>
+                        </a>
+                    </li>
+                      {{ pass }}
+                  </ul>
+            {{pass}}
+    </div>
+</div>
+    <div class="table-responsive">
+        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-dark">
+<!--                         <th id="noprint" scope="col">Alterar</th> -->
+                        <th scope="col">Referência</th>
+                        <th scope="col">Sistema</th>
+                        <th scope="col">Versao</th>
+                        <th id="noprint" class="text-right">Acessar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{for row in rows:}}
+                    <tr>
+<!--                     <th>
+                        <a href="{{=URL('alterar',args=row.id)}}">
+                            <i class="fa fa-fw fa-1x py-1 fa-pencil-square text-warning"></i>
+                        </a>
+                    </th> -->
+                    <td>{{=row.referencia}}</td>
+                    <td>{{=row.sistema.nome}}</td>
+                    <td>{{=row.sistema.versao}}</td>
+                    <th  id="noprint"class="text-right">
+                        
+                        <a href="{{=URL('relatorio',args=row.id)}}">
+                            <i class="fa fa-fw fa-1x py-1 fa-file-pdf-o text-info"></i>
+                        </a>
+                    </th>
+                    {{pass}}
+                </tbody>
+    </div>
+    <div class="row">
+    <div class="col-md-6">
+<!--         <h5 class="text-left my-2">Pagina {{=pagina}}/{{=paginas}}</h5> -->
+    </div>
+    <div class="col-md-6" id="noprint">
+            {{if True:}}
+                <ul class="pagination m-2  justify-content-end">
+                    {{ if pagina != 1: }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ =URL(args=1)}}">
+                            <i class="fa fa-angle-double-left"></i>
+                        </a>
+                    </li>
+                      {{ pass }}
+                       {{ if (paginas-pagina) > -3 and (pagina > 3)  : }}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ =URL(args=pagina-3)}}">{{=pagina-3}}</a>
+                    </li>
+                       {{ pass }}
+                       {{ if (paginas-pagina) > -2 and (pagina > 2) : }}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ =URL(args=pagina-2)}}">{{=pagina-2}}</a>
+                    </li>
+                       {{ pass }}
+                       {{ if (paginas-pagina) > -1 and (pagina != 1) : }}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ =URL(args=pagina-1)}}">{{=pagina-1}}</a>
+                    </li>
+                       {{ pass }}
+                    {{ if (paginas) > 1: }}
+                    <li class="page-item active">
+                        <a class="page-link" href="#">{{=pagina}}</a>
+                    </li>
+                       {{ pass }}
+                    {{ if (paginas-pagina) > 0: }}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ =URL(args=pagina+1)}}">{{=pagina+1}}</a>
+                    </li>
+                       {{ pass }}
+                    {{ if (paginas-pagina) > 1: }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ =URL(args=pagina+2)}}">{{=pagina+2}}</a>
+                    </li>
+                        {{ pass }}
+                    {{ if (paginas-pagina) > 2: }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ =URL(args=pagina+3)}}">{{=pagina+3}}</a>
+                    </li>
+                      {{ pass }}
+                    {{ if pagina != paginas: }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ =URL(args=paginas)}}">
+                            <i class="fa fa-angle-double-right"></i>
+                        </a>
+                    </li>
+                      {{ pass }}
+                  </ul>
+            {{pass}}
+    </div>
+</div>
+</div>

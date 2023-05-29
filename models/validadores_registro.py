@@ -1,0 +1,575 @@
+# -*- coding: utf-8 -*-
+
+#notnull, default e requires
+
+def validador_capa():
+    db.registro_atividade.empresa.readable=False
+    db.registro_atividade.sistema.writable=True
+    db.registro_atividade.tipo.readable=False
+    db.registro_atividade.tipo.writable=False
+    db.registro_atividade.referencia.writable=False
+    db.registro_atividade.data_inicial.readable=False
+    db.registro_atividade.data_inicial.writable=False
+    db.registro_atividade.responsavel.readable=True
+    db.registro_atividade.responsavel.writable=True
+    db.registro_atividade.responsavel.label='Responsável Doc'
+    db.registro_atividade.responsavel.requires = IS_IN_SET(['N/A','INTERNO','CLIENTE'])
+    db.registro_atividade.responsavel.default='CLIENTE'
+    
+    db.registro_atividade.descricao.label='Descrição da Causa Raiz'
+    db.registro_atividade.descricao.writable=True
+    db.registro_atividade.identificacao_desvio_cm.readable=True
+    db.registro_atividade.identificacao_desvio_cm.writable=True
+    
+    db.registro_atividade.registro_mudanca.readable=False
+    db.registro_atividade.registro_mudanca.writable=False
+    db.registro_atividade.motivo.readable=False
+    db.registro_atividade.motivo.writable=False
+    db.registro_atividade.procedimento_implantacao.readable=False
+    db.registro_atividade.procedimento_implantacao.writable=False
+    db.registro_atividade.analise_critica.readable=False
+    db.registro_atividade.analise_critica.writable=False
+    db.registro_atividade.hora_processo.readable=False
+    db.registro_atividade.hora_processo.writable=False
+    db.registro_atividade.local_backup.readable=False
+    db.registro_atividade.local_backup.writable=False
+    db.registro_atividade.identificacao_pop.readable=False
+    db.registro_atividade.identificacao_pop.writable=False
+    db.registro_atividade.motivo.readable=False
+    db.registro_atividade.motivo.writable=False
+    db.registro_atividade.area_desvio.readable=False
+    db.registro_atividade.area_desvio.writable=False
+    db.registro_atividade.tipo_desvio.readable=False
+    db.registro_atividade.tipo_desvio.writable=False
+    db.registro_atividade.avaliacao_criticidade.readable=False
+    db.registro_atividade.avaliacao_criticidade.writable=False
+    db.registro_atividade.ciente_desvio.readable=False
+    db.registro_atividade.ciente_desvio.writable=False
+    db.registro_atividade.responsavel_acao.readable=False
+    db.registro_atividade.responsavel_acao.writable=False
+    db.registro_atividade.versao_inicial.readable=False
+    db.registro_atividade.versao_inicial.writable=False
+    db.registro_atividade.nova_versao.readable=False
+    db.registro_atividade.nova_versao.writable=False
+    db.registro_atividade.analise_critica_bpf.readable=False
+    db.registro_atividade.analise_critica_bpf.writable=False
+    
+    db.registro_atividade.eficaz.readable=True
+    db.registro_atividade.eficaz.writable=True
+    db.registro_atividade.eficaz.label='Considerado Eficaz'
+    db.registro_atividade.eficaz.default='N/A'    
+    db.registro_atividade.eficaz.requires = IS_IN_SET(['N/A','NÃO','SIM'])
+    
+    db.registro_atividade.data_final.readable=True
+    db.registro_atividade.data_final.writable=True
+    db.registro_atividade.data_final.label='Data Av'
+    
+    db.registro_atividade.responsavel_avaliacao.readable=True
+    db.registro_atividade.responsavel_avaliacao.writable=True
+    db.registro_atividade.email_responsalvel.readable=True
+    db.registro_atividade.email_responsalvel.writable=True
+    db.registro_atividade.email_responsalvel.label='Email Resp.'
+    db.registro_atividade.email_responsalvel.requires = IS_EMAIL(error_message='Email Invalido!')
+    db.registro_atividade.observacao.readable=True
+    db.registro_atividade.observacao.writable=True
+    return True
+
+def validador_cm():
+    db.registro_atividade.empresa.readable=False
+    db.registro_atividade.sistema.writable=True
+    db.registro_atividade.tipo.readable=False
+    db.registro_atividade.tipo.writable=False
+    db.registro_atividade.referencia.writable=False
+    
+    db.registro_atividade.data_inicial.readable=True
+    db.registro_atividade.data_inicial.writable=True
+    db.registro_atividade.data_inicial.label='Data Abertura'
+    
+    db.registro_atividade.responsavel.readable=False
+    db.registro_atividade.responsavel.writable=False
+    db.registro_atividade.responsavel.default='N/A'
+    
+    db.registro_atividade.descricao.readable=True
+    db.registro_atividade.descricao.writable=True
+    
+    db.registro_atividade.identificacao_desvio_cm.readable=False
+    db.registro_atividade.identificacao_desvio_cm.writable=False
+    
+    db.registro_atividade.registro_mudanca.readable=True
+    db.registro_atividade.registro_mudanca.writable=True
+    db.registro_atividade.registro_mudanca.label='Registro de Mudança'
+    
+    db.registro_atividade.motivo.readable=True
+    db.registro_atividade.motivo.writable=True
+    
+    db.registro_atividade.procedimento_implantacao.readable=True
+    db.registro_atividade.procedimento_implantacao.writable=True
+    db.registro_atividade.procedimento_implantacao.label='Procedimento p/ Implantação'
+    
+    db.registro_atividade.analise_critica.readable=True
+    db.registro_atividade.analise_critica.writable=True
+    db.registro_atividade.analise_critica.label='Análise Critica em BPX'
+    
+    db.registro_atividade.hora_processo.readable=False
+    db.registro_atividade.hora_processo.writable=False
+    db.registro_atividade.local_backup.readable=False
+    db.registro_atividade.local_backup.writable=False
+    db.registro_atividade.identificacao_pop.readable=False
+    db.registro_atividade.identificacao_pop.writable=False
+    db.registro_atividade.motivo.readable=False
+    db.registro_atividade.motivo.writable=False
+    db.registro_atividade.area_desvio.readable=False
+    db.registro_atividade.area_desvio.writable=False
+    db.registro_atividade.tipo_desvio.readable=False
+    db.registro_atividade.tipo_desvio.writable=False
+    db.registro_atividade.avaliacao_criticidade.readable=False
+    db.registro_atividade.avaliacao_criticidade.writable=False
+    db.registro_atividade.ciente_desvio.readable=False
+    db.registro_atividade.ciente_desvio.writable=False
+    db.registro_atividade.responsavel_acao.readable=False
+    db.registro_atividade.responsavel_acao.writable=False
+    db.registro_atividade.versao_inicial.readable=False
+    db.registro_atividade.versao_inicial.writable=False
+    db.registro_atividade.nova_versao.readable=False
+    db.registro_atividade.nova_versao.writable=False
+    db.registro_atividade.analise_critica_bpf.readable=False
+    db.registro_atividade.analise_critica_bpf.writable=False
+    
+    db.registro_atividade.eficaz.label='Considerado Eficaz'
+    db.registro_atividade.eficaz.default='N/A'    
+    db.registro_atividade.eficaz.requires = IS_IN_SET(['N/A','NÃO','SIM'])
+    db.registro_atividade.data_final.readable=False
+    db.registro_atividade.data_final.writable=False
+    db.registro_atividade.responsavel_avaliacao.readable=False
+    db.registro_atividade.responsavel_avaliacao.writable=False
+    db.registro_atividade.email_responsalvel.readable=False
+    db.registro_atividade.email_responsalvel.writable=False
+    db.registro_atividade.observacao.readable=True
+    db.registro_atividade.observacao.writable=True
+    return True
+
+
+def validador_bk():
+    
+    db.registro_atividade.empresa.readable=False
+    db.registro_atividade.sistema.writable=True
+    db.registro_atividade.tipo.readable=False
+    db.registro_atividade.tipo.writable=False
+    db.registro_atividade.referencia.writable=False
+    db.registro_atividade.responsavel.default='N/A'
+    
+    db.registro_atividade.data_inicial.readable=True
+    db.registro_atividade.data_inicial.writable=True
+    db.registro_atividade.data_inicial.label='Data do Backup'
+    db.registro_atividade.responsavel.readable=False
+    db.registro_atividade.responsavel.writable=False
+    db.registro_atividade.descricao.readable=True
+    db.registro_atividade.descricao.writable=True
+    db.registro_atividade.identificacao_desvio_cm.readable=False
+    db.registro_atividade.identificacao_desvio_cm.writable=False
+    db.registro_atividade.registro_mudanca.readable=False
+    db.registro_atividade.registro_mudanca.writable=False
+    db.registro_atividade.motivo.readable=False
+    db.registro_atividade.motivo.writable=False
+    db.registro_atividade.procedimento_implantacao.readable=False
+    db.registro_atividade.procedimento_implantacao.writable=False
+    db.registro_atividade.analise_critica.readable=False
+    db.registro_atividade.analise_critica.writable=False
+    db.registro_atividade.hora_processo.readable=True
+    db.registro_atividade.hora_processo.writable=True
+    db.registro_atividade.hora_processo.label='Hora do Backup'
+    db.registro_atividade.local_backup.readable=True
+    db.registro_atividade.local_backup.writable=True
+    db.registro_atividade.local_backup.label='Local do Backup'
+    db.registro_atividade.identificacao_pop.readable=False
+    db.registro_atividade.identificacao_pop.writable=False
+    db.registro_atividade.motivo.readable=False
+    db.registro_atividade.motivo.writable=False
+    db.registro_atividade.area_desvio.readable=False
+    db.registro_atividade.area_desvio.writable=False
+    db.registro_atividade.tipo_desvio.readable=False
+    db.registro_atividade.tipo_desvio.writable=False
+    db.registro_atividade.avaliacao_criticidade.readable=False
+    db.registro_atividade.avaliacao_criticidade.writable=False
+    db.registro_atividade.ciente_desvio.readable=False
+    db.registro_atividade.ciente_desvio.writable=False
+    db.registro_atividade.responsavel_acao.readable=True
+    db.registro_atividade.responsavel_acao.writable=True
+    db.registro_atividade.responsavel_acao.label='Responsável Ação'
+    db.registro_atividade.versao_inicial.readable=False
+    db.registro_atividade.versao_inicial.writable=False
+    db.registro_atividade.nova_versao.readable=False
+    db.registro_atividade.nova_versao.writable=False
+    db.registro_atividade.analise_critica_bpf.readable=False
+    db.registro_atividade.analise_critica_bpf.writable=False
+    db.registro_atividade.eficaz.readable=False
+    db.registro_atividade.eficaz.writable=False
+    db.registro_atividade.data_final.readable=False
+    db.registro_atividade.data_final.writable=False
+    db.registro_atividade.responsavel_avaliacao.readable=False
+    db.registro_atividade.responsavel_avaliacao.writable=False
+    db.registro_atividade.email_responsalvel.readable=False
+    db.registro_atividade.email_responsalvel.writable=False
+    db.registro_atividade.observacao.readable=True
+    
+    return True
+    
+def validador_rt():
+    
+    db.registro_atividade.empresa.readable=False
+    db.registro_atividade.sistema.writable=True
+    db.registro_atividade.tipo.readable=False
+    db.registro_atividade.tipo.writable=False
+    db.registro_atividade.referencia.writable=False
+    db.registro_atividade.responsavel.default='N/A'
+    db.registro_atividade.data_inicial.readable=True
+    db.registro_atividade.data_inicial.writable=True
+    db.registro_atividade.data_inicial.label='Data Treinamento'
+    
+    db.registro_atividade.responsavel.readable=True
+    db.registro_atividade.responsavel.writable=True
+    db.registro_atividade.responsavel.label='Ministrante'
+    db.registro_atividade.descricao.readable=True
+    db.registro_atividade.descricao.writable=True
+    db.registro_atividade.descricao.label='Tema'
+    db.registro_atividade.identificacao_desvio_cm.readable=False
+    db.registro_atividade.identificacao_desvio_cm.writable=False
+    db.registro_atividade.registro_mudanca.readable=False
+    db.registro_atividade.registro_mudanca.writable=False
+    db.registro_atividade.motivo.readable=False
+    db.registro_atividade.motivo.writable=False
+    db.registro_atividade.procedimento_implantacao.readable=False
+    db.registro_atividade.procedimento_implantacao.writable=False
+    db.registro_atividade.analise_critica.readable=False
+    db.registro_atividade.analise_critica.writable=False
+    db.registro_atividade.hora_processo.readable=False
+    db.registro_atividade.hora_processo.writable=False
+    db.registro_atividade.local_backup.readable=False
+    db.registro_atividade.local_backup.writable=False
+    db.registro_atividade.identificacao_pop.readable=False
+    db.registro_atividade.identificacao_pop.writable=False
+    db.registro_atividade.motivo.readable=False
+    db.registro_atividade.motivo.writable=False
+    db.registro_atividade.area_desvio.readable=False
+    db.registro_atividade.area_desvio.writable=False
+    db.registro_atividade.tipo_desvio.readable=False
+    db.registro_atividade.tipo_desvio.writable=False
+    db.registro_atividade.avaliacao_criticidade.readable=False
+    db.registro_atividade.avaliacao_criticidade.writable=False
+    db.registro_atividade.ciente_desvio.readable=False
+    db.registro_atividade.ciente_desvio.writable=False
+    db.registro_atividade.responsavel_acao.readable=False
+    db.registro_atividade.responsavel_acao.writable=False
+    db.registro_atividade.versao_inicial.readable=False
+    db.registro_atividade.versao_inicial.writable=False
+    db.registro_atividade.nova_versao.readable=False
+    db.registro_atividade.nova_versao.writable=False
+    db.registro_atividade.analise_critica_bpf.readable=False
+    db.registro_atividade.analise_critica_bpf.writable=False
+    db.registro_atividade.eficaz.readable=False
+    db.registro_atividade.eficaz.writable=False
+    db.registro_atividade.data_final.readable=False
+    db.registro_atividade.data_final.writable=False
+    db.registro_atividade.responsavel_avaliacao.readable=False
+    db.registro_atividade.responsavel_avaliacao.writable=False
+    db.registro_atividade.email_responsalvel.readable=False
+    db.registro_atividade.email_responsalvel.writable=False
+    db.registro_atividade.observacao.readable=True
+    
+    return True
+    
+def validador_rp():
+    
+    db.registro_atividade.empresa.readable=False
+    db.registro_atividade.sistema.writable=True
+    db.registro_atividade.tipo.readable=False
+    db.registro_atividade.tipo.writable=False
+    db.registro_atividade.referencia.writable=False
+    db.registro_atividade.responsavel.default='N/A'
+    
+    
+    db.registro_atividade.data_inicial.readable=False
+    db.registro_atividade.data_inicial.writable=False
+    db.registro_atividade.responsavel.readable=False
+    db.registro_atividade.responsavel.writable=False
+    db.registro_atividade.descricao.readable=True
+    db.registro_atividade.descricao.writable=True
+    db.registro_atividade.descricao.label='Procedimento'
+    
+    db.registro_atividade.identificacao_desvio_cm.readable=False
+    db.registro_atividade.identificacao_desvio_cm.writable=False
+    db.registro_atividade.registro_mudanca.readable=False
+    db.registro_atividade.registro_mudanca.writable=False
+    db.registro_atividade.motivo.readable=False
+    db.registro_atividade.motivo.writable=False
+    db.registro_atividade.motivo.label='Motivo da Revisão'
+    db.registro_atividade.procedimento_implantacao.readable=False
+    db.registro_atividade.procedimento_implantacao.writable=False
+    db.registro_atividade.analise_critica.readable=False
+    db.registro_atividade.analise_critica.writable=False
+    db.registro_atividade.hora_processo.readable=False
+    db.registro_atividade.hora_processo.writable=False
+    db.registro_atividade.local_backup.readable=False
+    db.registro_atividade.local_backup.writable=False
+    db.registro_atividade.identificacao_pop.readable=True
+    db.registro_atividade.identificacao_pop.writable=True
+    db.registro_atividade.identificacao_pop.label='Identificação POP'
+    db.registro_atividade.motivo.readable=True
+    db.registro_atividade.motivo.writable=True
+    db.registro_atividade.area_desvio.readable=False
+    db.registro_atividade.area_desvio.writable=False
+    db.registro_atividade.tipo_desvio.readable=False
+    db.registro_atividade.tipo_desvio.writable=False
+    db.registro_atividade.avaliacao_criticidade.readable=False
+    db.registro_atividade.avaliacao_criticidade.writable=False
+    db.registro_atividade.ciente_desvio.readable=False
+    db.registro_atividade.ciente_desvio.writable=False
+    db.registro_atividade.responsavel_acao.readable=False
+    db.registro_atividade.responsavel_acao.writable=False
+    db.registro_atividade.versao_inicial.readable=False
+    db.registro_atividade.versao_inicial.writable=False
+    db.registro_atividade.nova_versao.readable=False
+    db.registro_atividade.nova_versao.writable=False
+    db.registro_atividade.analise_critica_bpf.readable=True
+    db.registro_atividade.analise_critica_bpf.writable=True
+    db.registro_atividade.eficaz.readable=False
+    db.registro_atividade.eficaz.writable=False
+    db.registro_atividade.data_final.readable=True
+    db.registro_atividade.data_final.writable=True
+    db.registro_atividade.data_final.label='Data de Validade'
+    db.registro_atividade.responsavel_avaliacao.readable=False
+    db.registro_atividade.responsavel_avaliacao.writable=False
+    db.registro_atividade.email_responsalvel.readable=False
+    db.registro_atividade.email_responsalvel.writable=False
+    db.registro_atividade.observacao.readable=True
+    
+    return True
+    
+def validador_rdq():
+    db.registro_atividade.empresa.readable=False
+    db.registro_atividade.sistema.writable=True
+    db.registro_atividade.tipo.readable=False
+    db.registro_atividade.tipo.writable=False
+    db.registro_atividade.referencia.writable=False
+    db.registro_atividade.responsavel.default='N/A'
+    
+    db.registro_atividade.data_inicial.readable=True
+    db.registro_atividade.data_inicial.writable=True
+    db.registro_atividade.data_inicial.label='Data de Detecção'
+    db.registro_atividade.responsavel.readable=False
+    db.registro_atividade.responsavel.writable=False
+    db.registro_atividade.descricao.readable=True
+    db.registro_atividade.descricao.writable=True
+    db.registro_atividade.identificacao_desvio_cm.readable=False
+    db.registro_atividade.identificacao_desvio_cm.writable=False
+    db.registro_atividade.registro_mudanca.readable=True
+    db.registro_atividade.registro_mudanca.writable=True
+    db.registro_atividade.registro_mudanca.label='Nº Ident do Desvio'
+    db.registro_atividade.motivo.readable=False
+    db.registro_atividade.motivo.writable=False
+    db.registro_atividade.procedimento_implantacao.readable=False
+    db.registro_atividade.procedimento_implantacao.writable=False
+    db.registro_atividade.analise_critica.readable=False
+    db.registro_atividade.analise_critica.writable=False
+    db.registro_atividade.hora_processo.readable=False
+    db.registro_atividade.hora_processo.writable=False
+    db.registro_atividade.local_backup.readable=True
+    db.registro_atividade.local_backup.writable=True
+    db.registro_atividade.local_backup.label='Local do Desvio'
+    db.registro_atividade.local_backup.default='CLIENTE'
+    db.registro_atividade.local_backup.requires = IS_IN_SET(['INTERNO','CLIENTE'])
+    db.registro_atividade.identificacao_pop.readable=False
+    db.registro_atividade.identificacao_pop.writable=False
+    db.registro_atividade.motivo.readable=False
+    db.registro_atividade.motivo.writable=False
+    
+    db.registro_atividade.area_desvio.readable=True
+    db.registro_atividade.area_desvio.writable=True
+    db.registro_atividade.area_desvio.default='VALIDAÇÃO'
+    db.registro_atividade.area_desvio.requires = IS_IN_SET(['METROLOGIA','QUALIFICAÇÃO','VALIDAÇÃO'])
+    
+    db.registro_atividade.tipo_desvio.readable=True
+    db.registro_atividade.tipo_desvio.writable=True
+    db.registro_atividade.tipo_desvio.default='1-DESCUMPRIMENTO DE POP'
+    db.registro_atividade.tipo_desvio.requires = IS_IN_SET(['1-DESCUMPRIMENTO DE POP','2-COMPONENTE DANIFICADO','3-FALHA EM UTILIDADES','4-FALHA EM TESTE','5-INCOERÊNCIA EM DOCUMENTO','6-OUTRO VIDE DESCRIÇÃO'])
+    
+    db.registro_atividade.avaliacao_criticidade.readable=True
+    db.registro_atividade.avaliacao_criticidade.writable=True
+    db.registro_atividade.avaliacao_criticidade.default='NÃO CRÍTICO'
+    db.registro_atividade.avaliacao_criticidade.requires = IS_IN_SET(['CRÍTICO','NÃO CRÍTICO'])
+    
+    db.registro_atividade.ciente_desvio.readable=True
+    db.registro_atividade.ciente_desvio.writable=True
+    db.registro_atividade.ciente_desvio.default='CLIENTE'
+    db.registro_atividade.ciente_desvio.requires = IS_IN_SET(['INTERNO','CLIENTE'])
+    
+    db.registro_atividade.responsavel_acao.readable=True
+    db.registro_atividade.responsavel_acao.writable=True
+    db.registro_atividade.responsavel_acao.label='Responsável Ação'
+    db.registro_atividade.responsavel_acao.default='CLIENTE'
+    db.registro_atividade.responsavel_acao.requires = IS_IN_SET(['INTERNO','CLIENTE'])
+    
+    db.registro_atividade.versao_inicial.readable=False
+    db.registro_atividade.versao_inicial.writable=False
+    db.registro_atividade.nova_versao.readable=False
+    db.registro_atividade.nova_versao.writable=False
+    db.registro_atividade.analise_critica_bpf.readable=False
+    db.registro_atividade.analise_critica_bpf.writable=False
+    db.registro_atividade.eficaz.readable=False
+    db.registro_atividade.eficaz.writable=False
+    db.registro_atividade.data_final.readable=False
+    db.registro_atividade.data_final.writable=False
+    db.registro_atividade.responsavel_avaliacao.readable=False
+    db.registro_atividade.responsavel_avaliacao.writable=False
+    db.registro_atividade.email_responsalvel.readable=False
+    db.registro_atividade.email_responsalvel.writable=False
+    db.registro_atividade.observacao.readable=True
+    
+    return True
+    
+def validador_vs():
+    db.registro_atividade.empresa.readable=False
+    db.registro_atividade.sistema.writable=True
+    db.registro_atividade.tipo.readable=False
+    db.registro_atividade.tipo.writable=False
+    db.registro_atividade.referencia.writable=False
+    db.registro_atividade.responsavel.default='N/A'
+    
+    db.registro_atividade.data_inicial.readable=False
+    db.registro_atividade.data_inicial.writable=False
+    db.registro_atividade.responsavel.readable=False
+    db.registro_atividade.responsavel.writable=False
+    db.registro_atividade.descricao.readable=False
+    db.registro_atividade.descricao.writable=False
+    db.registro_atividade.descricao.default='Atualização de Versão'
+    db.registro_atividade.identificacao_desvio_cm.readable=False
+    db.registro_atividade.identificacao_desvio_cm.writable=False
+    db.registro_atividade.registro_mudanca.readable=False
+    db.registro_atividade.registro_mudanca.writable=False
+    db.registro_atividade.motivo.readable=False
+    db.registro_atividade.motivo.writable=False
+    db.registro_atividade.procedimento_implantacao.readable=False
+    db.registro_atividade.procedimento_implantacao.writable=False
+    db.registro_atividade.analise_critica.readable=False
+    db.registro_atividade.analise_critica.writable=False
+    db.registro_atividade.hora_processo.readable=False
+    db.registro_atividade.hora_processo.writable=False
+    db.registro_atividade.local_backup.readable=False
+    db.registro_atividade.local_backup.writable=False
+    db.registro_atividade.identificacao_pop.readable=False
+    db.registro_atividade.identificacao_pop.writable=False
+    db.registro_atividade.motivo.readable=True
+    db.registro_atividade.motivo.writable=True
+    db.registro_atividade.motivo.label='Motivo da Mudança'
+    db.registro_atividade.area_desvio.readable=False
+    db.registro_atividade.area_desvio.writable=False
+    db.registro_atividade.tipo_desvio.readable=False
+    db.registro_atividade.tipo_desvio.writable=False
+    db.registro_atividade.avaliacao_criticidade.readable=False
+    db.registro_atividade.avaliacao_criticidade.writable=False
+    db.registro_atividade.ciente_desvio.readable=False
+    db.registro_atividade.ciente_desvio.writable=False
+    db.registro_atividade.responsavel_acao.readable=False
+    db.registro_atividade.responsavel_acao.writable=False
+    db.registro_atividade.versao_inicial.readable=True
+    db.registro_atividade.versao_inicial.writable=True
+    db.registro_atividade.nova_versao.readable=True
+    db.registro_atividade.nova_versao.writable=True
+    db.registro_atividade.analise_critica_bpf.readable=True
+    db.registro_atividade.analise_critica_bpf.writable=True
+    db.registro_atividade.eficaz.readable=False
+    db.registro_atividade.eficaz.writable=False
+    db.registro_atividade.data_final.readable=False
+    db.registro_atividade.data_final.writable=False
+    db.registro_atividade.responsavel_avaliacao.readable=False
+    db.registro_atividade.responsavel_avaliacao.writable=False
+    db.registro_atividade.email_responsalvel.readable=False
+    db.registro_atividade.email_responsalvel.writable=False
+    db.registro_atividade.observacao.readable=True
+    
+    return True
+    
+    
+def validador_rvp():
+    db.registro_atividade.empresa.readable=False
+    db.registro_atividade.sistema.writable=True
+    db.registro_atividade.tipo.readable=False
+    db.registro_atividade.tipo.writable=False
+    db.registro_atividade.referencia.writable=False
+    db.registro_atividade.responsavel.default='N/A'
+    
+    db.registro_atividade.data_inicial.readable=True
+    db.registro_atividade.data_inicial.writable=True
+    db.registro_atividade.data_inicial.label='Vencimento'
+    db.registro_atividade.responsavel.readable=False
+    db.registro_atividade.responsavel.writable=False
+    db.registro_atividade.descricao.readable=False
+    db.registro_atividade.descricao.writable=False
+    db.registro_atividade.descricao.default='Atualização de Versão'
+    db.registro_atividade.identificacao_desvio_cm.readable=False
+    db.registro_atividade.identificacao_desvio_cm.writable=False
+    db.registro_atividade.registro_mudanca.readable=False
+    db.registro_atividade.registro_mudanca.writable=False
+    db.registro_atividade.motivo.readable=False
+    db.registro_atividade.motivo.writable=False
+    db.registro_atividade.procedimento_implantacao.readable=False
+    db.registro_atividade.procedimento_implantacao.writable=False
+    db.registro_atividade.analise_critica.readable=False
+    db.registro_atividade.analise_critica.writable=False
+    db.registro_atividade.hora_processo.readable=False
+    db.registro_atividade.hora_processo.writable=False
+    db.registro_atividade.local_backup.readable=False
+    db.registro_atividade.local_backup.writable=False
+    db.registro_atividade.identificacao_pop.readable=False
+    db.registro_atividade.identificacao_pop.writable=False
+    db.registro_atividade.motivo.readable=False
+    db.registro_atividade.motivo.writable=False
+    db.registro_atividade.motivo.label='Motivo da Mudança'
+    db.registro_atividade.area_desvio.readable=False
+    db.registro_atividade.area_desvio.writable=False
+    db.registro_atividade.tipo_desvio.readable=False
+    db.registro_atividade.tipo_desvio.writable=False
+    db.registro_atividade.avaliacao_criticidade.readable=False
+    db.registro_atividade.avaliacao_criticidade.writable=False
+    db.registro_atividade.ciente_desvio.readable=False
+    db.registro_atividade.ciente_desvio.writable=False
+    db.registro_atividade.responsavel_acao.readable=False
+    db.registro_atividade.responsavel_acao.writable=False
+    db.registro_atividade.versao_inicial.readable=False
+    db.registro_atividade.versao_inicial.writable=False
+    db.registro_atividade.nova_versao.readable=False
+    db.registro_atividade.nova_versao.writable=False
+    db.registro_atividade.analise_critica_bpf.readable=False
+    db.registro_atividade.analise_critica_bpf.writable=False
+    db.registro_atividade.eficaz.readable=False
+    db.registro_atividade.eficaz.writable=False
+    db.registro_atividade.data_final.readable=True
+    db.registro_atividade.data_final.writable=True
+    db.registro_atividade.data_final.label='Prox. Revisão'
+    db.registro_atividade.responsavel_avaliacao.readable=False
+    db.registro_atividade.responsavel_avaliacao.writable=False
+    db.registro_atividade.email_responsalvel.readable=False
+    db.registro_atividade.email_responsalvel.writable=False
+    db.registro_atividade.observacao.readable=True
+    
+    return True
+    
+    
+def validador(cod_tipo):
+    cod_tipo=str(cod_tipo)
+    funcao = {
+        '1001': validador_capa,
+        '1002': validador_cm,
+        '1003': validador_bk,
+        '1004': validador_rt,
+        '1005': validador_rp,
+        '1006': validador_rdq,
+        '1007': validador_vs,
+        '1008': validador_rvp,
+    }
+    funcao[cod_tipo]()
+
+
+
+    db.registro_atividade.observacao.writable=True
+    return True

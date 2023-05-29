@@ -1,0 +1,111 @@
+{{extend 'layout.html'}}
+ <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-bordered table-sm">
+              <thead>
+                <tr>
+                  <th colspan="4" class="text-center">{{=registro_atividade.tipo[6:]}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Cód. Referência </td>
+                  <td>Identificação do Sistema</td>
+                  <td colspan="2">Controle de Mudança</td>
+                </tr>
+                <tr>
+                  <td>{{=registro_atividade.referencia}}</td>
+                  <td>{{=registro_atividade.sistema.nome}}</td>
+                  <td colspan="2">{{=registro_atividade.identificacao_desvio_cm}}</td>
+                </tr>
+                <tr>
+                  <td colspan="4">Descrição da causa raiz:</td>
+                </tr>
+                <tr>
+                  <td colspan="5">{{=registro_atividade.descricao}}</td>
+                </tr>
+                <tr>
+                  <td>Avaliação da eficácia:</td>
+                  <td>Data de avaliação da eficácia</td>
+                  <td colspan="2">Responsável pela avaliação</td>
+                </tr>
+                <tr>
+                  <td>{{=registro_atividade.eficaz}}</td>
+                  <td>{{=registro_atividade.data_final}}</td>
+                  <td colspan="2">{{=registro_atividade.responsavel_avaliacao}}</td>
+                </tr>
+                <tr>
+                  <td colspan="4">E-mail do avaliador:</td>
+                </tr>
+                <tr>
+                  <td colspan="5">{{=registro_atividade.email_responsalvel}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table  table-bordered table-sm">
+              <thead>
+                <tr>
+                  <th colspan="7" class="text-center">GESTÃO DE RISCO</th>
+                </tr>
+              </thead>
+              </table>
+            </div>
+                {{for gr in lista_gr:}}
+            
+          <div class="table-responsive py-3">
+            <table class="table  table-bordered table-sm">
+               
+
+              <tbody>
+                <tr>
+                  <th>Cenário do risco</th>
+                  <th>Efeito do risco</th>
+                  <th>Severidade</th>
+                  <th>Probabilid</th>
+                  <th>Classe</th>
+                  <th>Detecção</th>
+                  <th>Prioridade</th>
+                </tr>
+                <tr>
+                  <td>{{=gr.cenario_risco}}</td>
+                  <td>{{=gr.efeito_risco}}</td>
+                  <td>{{=gr.severidade}}</td>
+                  <td>{{=gr.probabilidade}}</td>
+                  <td>{{=gr.classe_risco}}</td>
+                  <td>{{=gr.detectibilidade}}</td>
+                  <td>{{=gr.prioridade}}</td>
+                </tr>
+                <tr>
+                  <td colspan="7"><b>Medidas:</b> {{=gr.medidas}}</td>
+                </tr>
+                <tr>
+                  <td colspan="7"><b>Responsavel:</b> {{=gr.responsavel_acao}}</td>
+                </tr>
+                <tr>
+                  <td colspan="2"><b>Email do Responsavel:</b> {{=gr.email_responsavel_acao}}</td>
+                  <td></td>
+                  <td colspan="5"><b>Data Prevista:</b> {{=gr.data_prevista.strftime('%d/%m/%Y')}}</td>
+                </tr>
+               
+              </tbody>
+            </table>
+          </div>
+                
+                {{pass}}
+        </div>
+      </div>
+    </div>
+  </div>

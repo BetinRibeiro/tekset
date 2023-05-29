@@ -1,0 +1,117 @@
+{{extend 'layout.html'}}
+{{from datetime import date}}
+<div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+            
+          <div class="table-responsive">
+            <table class="table table-bordered table-sm table-striped ">
+              <thead class="t">
+                <tr>
+                  <th colspan="4">Nº Registro: 13</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>Cód. Referência:</th>
+                  <th>Identificação do Sistema:</th>
+                  <th>Versão:</th>
+                  <th>Versão Atual:</th>
+                </tr>
+                <tr>
+                  <td>{{=sistema.referencia}}</td>
+                  <td>{{=sistema.nome}}</td>
+                  <td>{{=sistema.versao}}</td>
+                  <td>{{=sistema.versao_atual}}</td>
+                 </tr>
+                <tr>
+                  <th colspan="4">Fornecedor:</th>
+                </tr>
+                <tr>
+                  <td colspan="4">{{=sistema.fornecedor}}</td>
+                <tr>
+                  <th colspan="4">Equipamento:</th>
+                </tr>
+                <tr>
+                  <td colspan="4">{{=sistema.equipamento}}</td>
+                </tr>
+                <tr>
+                  <th colspan="2">TAG:</th>
+                  <th colspan="2">SETOR:</th>
+                </tr>
+                <tr>
+                  <td colspan="2">{{=sistema.tag}}</td>
+                      <td colspan="2">{{=sistema.setor}}</td>
+                </tr>
+                <tr>
+                  <th colspan="2">Dono do sistema:</th>
+                  <th colspan="2">Dono do processo:</th>
+                </tr>
+                <tr>
+                  <td colspan="2">{{=sistema.dono_sistema}}</td>
+                  <td colspan="2">{{=sistema.dono_processo}}</td>
+                </tr>
+                <tr>
+                  <th colspan="2">Classificação do Software:</th>
+                  <th colspan="2">Classificação do hardware:</th>
+                </tr>
+                <tr>
+                  <td colspan="2">{{=sistema.classificacao_software}}</td>
+                  <td colspan="2">{{=sistema.classificacao_hardware}}</td>
+                </tr>
+                <tr>
+                  <th>Status do sistema:</th>
+                  <th>Status da VSC:</th>
+                  <th>Tipo de sistema:</th>
+                  <th>Tipo de Validação</th>
+                </tr>
+                <tr>
+                  <td>{{=sistema.status_sistema}}</td>
+                  <td>{{=sistema.status_validacao}}</td>
+                  <td>{{=sistema.tipo_sistema}}</td>
+                  <td>{{=sistema.tipo_validacao}}</td>
+                </tr>
+                <tr>
+                  <th>Cntrole de acesso</th>
+                  <th>Trilha de auditoria</th>
+                  <th>Interface</th>
+                  <th>Validável</th>
+                </tr>
+                <tr>
+                  <th>{{=sistema.controle_acesso}}</th>
+                  <td>{{=sistema.trilha_auditoria}}</td>
+                  <td>{{=sistema.interface_externa}}</td>
+                  <td>{{=sistema.possibilidade_validacao}}</td>
+                </tr>
+                <tr>
+                  <th>N° de usuários</th>
+                  <th>Impacto na qualidade</th>
+                  <th>Poss. de validação</th>
+                  <th>Data do relatório</th>
+                </tr>
+                <tr>
+                  <td>{{=sistema.quantidade_usuarios}}</td>
+                    <td>{{=sistema.impacto}}</td>
+                  <td>{{=sistema.necessidade_validacao}}</td>
+                  <td>{{=sistema.data_relatorio.strftime('%d/%m/%Y')}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+            <h4 class="text-center">
+                {{dias_revisao=calcula_revisao(sistema.id)}}
+
+{{data_cricao=sistema.created_on.date()}}
+{{sistema.data_prox_revisao = date.fromordinal(data_cricao.toordinal()+dias_revisao)}}
+{{sistema.update_record()}}
+Os requisitos atuais no formulário sugere que a revisão periódica seja feita em {{=dias_revisao//30}} meses
+            </h4>
+            <p class="text-center">
+                Próxima revisão para {{=sistema.data_prox_revisao.strftime('%d/%m/%Y')}}
+            </p>
+        </div>
+      </div>
+    </div>
+  </div>
+{{=gerar_revisao_periodica(sistema.id)}}

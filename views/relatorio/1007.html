@@ -1,0 +1,39 @@
+{{extend 'layout.html'}}
+
+
+ <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive" >
+            <table class="table table-sm table-striped">
+              <thead>
+                <tr>
+                    <th class="text-center" colspan="3"><b>VERSÕES DE SISTEMA</b></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Id. do Sistema:</b> {{=registro_atividade.sistema.nome}}</td>
+                  <td><b>Versão Inicial:</b> {{=registro_atividade.versao_inicial}}</td>
+                  <td><b>Versão Atual:</b> {{=registro_atividade.nova_versao}}</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><b>Motivo da Mudança:</b></td>
+                </tr>
+                <tr>
+                  <td colspan="3">{{=registro_atividade.descricao}}</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><b>Análise Critica em BPX</b></td>
+                </tr>
+                <tr>
+                  <td colspan="3">{{=registro_atividade.analise_critica_bpf}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

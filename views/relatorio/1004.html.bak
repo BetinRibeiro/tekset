@@ -1,0 +1,41 @@
+{{extend 'layout.html'}}
+
+
+
+<div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive" >
+            <table class="table table-bordered table-borderless table-sm table-striped">
+              <thead>
+                <tr>
+                  <th colspan="2" class="text-center"><b>REGISTRO DE TREINAMENTOS</b></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Cód. Referência</b></td>
+                  <td><b>Identificação do Sistema</b></td>
+                </tr>
+                <tr>
+                  <td>{{=registro_atividade.referencia}}</td>
+                  <td>{{=registro_atividade.sistema.nome}}</td>
+                </tr>
+                <tr>
+                  <td colspan="2"><b>Tema: </b>{{=registro_atividade.descricao}}</td>
+                </tr>
+                <tr>
+                  <td colspan="2"><b>Ministrante: </b>{{=registro_atividade.responsavel_acao}}</td>
+                </tr>
+                <tr>
+                  <td><b>Data do treinamento: </b>{{=registro_atividade.data_final.strftime('%d/%m/%Y')}}</td>
+                  <td><b>Setor: </b>{{=registro_atividade.local_backup}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

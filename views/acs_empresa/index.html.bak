@@ -1,0 +1,185 @@
+{{extend 'layout.html'}}
+{{if False:}}
+<div class="container-fluid pt-4 px-4">
+        <div class="row g-4">
+          <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+              <i class="fa fa-pie-chart fa-3x text-primary"></i>
+              <div class="ms-3">
+                <p class="mb-2">Entradas</p>
+                <h6 class="mb-0">R$ 159.180,00</h6>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+              <i class="fa fa-line-chart fa-3x text-primary"></i>
+              <div class="ms-3">
+                <p class="mb-2">Saidas</p>
+                <h6 class="mb-0">R$ 0,00</h6>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+              <i class="fa fa-bar-chart fa-3x text-primary"></i>
+              <div class="ms-3">
+                <p class="mb-2">Processos</p>
+                <h6 class="mb-0">R$ 8.328,00</h6>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+              <i class="fa fa-area-chart fa-3x text-primary"></i>
+              <div class="ms-3">
+                <p class="mb-2">Patrimônio</p>
+                <h6 class="mb-0">R$ 153.987,15</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row pt-2">
+          <div class="col-md-6" ></div>
+          <div class="col-md-6"></div>
+        </div>
+        <div class="row pt-2">
+          <div class="col-md-3">
+            <div class="card text-center">
+              <div class="card-header"> Financeiro</div>
+              <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+              <div class="card-footer text-muted"> 2 days ago </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-center">
+              <div class="card-header"> Produção</div>
+              <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+              <div class="card-footer text-muted"> 2 days ago </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-center">
+              <div class="card-header"> Recursos Humanos</div>
+              <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+              <div class="card-footer text-muted"> 2 days ago </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-center">
+              <div class="card-header"> Contabil</div>
+              <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+              <div class="card-footer text-muted"> 2 days ago </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{{pass}}
+<div class="bg-light rounded p-4">
+    <div class="d-flex align-items-center justify-content-between mb-4 text-center">
+        <h6 class="mb-0">{{=empresa.nome}}</h6>
+        <a class="btn btn-info btn-sm" href="{{=URL('alterar')}}"><i class="fa fa-fw fa-pencil-square"></i> Alterar Empresa</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-dark">
+<!--                         <th id="noprint" scope="col">Sigla</th> -->
+                        <th scope="col">Registro</th>
+<!--                         <th scope="col">Cod</th> -->
+                        <th id="noprint" class="text-right">Acessar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        {{if not 'Analista' in usuario.tipo:}}
+                    <tr>
+                        <td>EMPRESAS</td>
+                        <td id="noprint" class="text-right">
+                            <a href="{{=URL('acs_cliente','index')}}">
+                                <i class="fa fa-fw fa-1x py-1 fa-folder-open  text-info"></i>
+                            </a>
+                        </td>
+                    </tr>
+                        {{pass}}
+                        {{if not 'Analista' in usuario.tipo:}}
+                    <tr>
+                        <td>COLABORADORES</td>
+                        <td id="noprint" class="text-right">
+                            <a href="{{=URL('acs_usuario','index')}}">
+                                <i class="fa fa-fw fa-1x py-1 fa-folder-open  text-info"></i>
+                            </a>
+                        </td>
+                    </tr>
+                        {{pass}}
+                    <tr>
+<!--                             <th id="noprint" scope="row">
+                                #
+                            </th> -->
+                            <td>SISTEMAS</td>
+<!--                             <td>0000</td> -->
+                            <td id="noprint" class="text-right">
+                                <a href="{{=URL('acs_sistema','index')}}">
+                                 <i class="fa fa-fw fa-1x py-1 fa-folder-open  text-info"></i></a>
+                            </td>
+                        </tr>
+                     <tr>
+<!--                             <th id="noprint" scope="row">
+                                #
+                            </th> -->
+                            <td>TODOS REGISTROS ==></td>
+<!--                             <td>0000</td> -->
+                            <td id="noprint" class="text-right">
+                                <a href="{{=URL('acs_registro_atividade','todos_registros')}}">
+                                 <i class="fa fa-fw fa-1x py-1 fa-folder-open  text-info"></i></a>
+                            </td>
+                        </tr>
+                    {{for row in lista_registro_atividade:}}
+                        <tr>
+<!--                             <th id="noprint" scope="row">
+                                {{=row[7:11]}}
+                            </th> -->
+                            <td>{{=row[13:]}}</td>
+<!--                             <td>{{=row[:4]}}</td> -->
+                            <td id="noprint" class="text-right">
+                                <a href="{{=URL('acs_registro_atividade','index',args=row[:4])}}">
+                                 <i class="fa fa-fw fa-1x py-1 fa-folder-open  text-info"></i></a>
+                            </td>
+                        </tr>
+                    {{pass}}
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+<div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <ol class="" >
+            <li>Criar home Page</li>
+            <li>Usuario tem que ter a opção de vincular a uma empresa cleinte</li>
+            <li>Comportamento dinamico de cada tela de atividade</li>
+            <li>Deixar as revisões periodicas automaticas</li>
+            <li>Disparo de email automaticamente toda vez que salvar ou alterar os dados enviar para o email do circunspecto</li>
+            <li>Restrinções de acesso a nivel de usuario</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>

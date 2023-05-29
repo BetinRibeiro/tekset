@@ -1,0 +1,32 @@
+# -*- coding: utf-8 -*-
+
+@auth.requires_login()
+def index():
+    usuario = db.usuario_empresa(db.usuario_empresa.usuario==auth.user.id)
+    empresa =db.empresa(usuario.empresa)
+    tipo = int(request.args[0])
+    tipo_descricao = retorna_atividade(tipo)
+    if usuario.ativo==False:
+        redirect(URL('default','index'))
+    paginacao = 35
+    if len(request.args) == 1:
+        pagina = 1
+    else:
+        try:
+            pagina = int(request.args[1])
+        except ValueError:
+            redirect(URL(args=[tipo,1]))
+    if pagina <= 0:
+        pagina = 1
+    total = db((db.registro_atividade.empresa==empresa.id)&(db.registro_atividade.excluido==False)&(db.registro_atividade.tipo.contains(tipo))).count()
+    paginas = total//paginacao
+    if total%paginacao:
+        paginas+=1
+    if total==0:
+        paginas=1
+    if pagina > paginas:
+        redirect(URL(args=[tipo,paginas]))
+    limites = (paginacao*(pagina-1), (paginacao*pagina))
+    registros = db((db.registro_atividade.empresa==empresa.id)&(db.registro_atividade.excluido==False)&(db.registro_atividade.tipo.contains(tipo))).select(
+      limitby=limites,orderby=~db.registro_atividade.id|db.registro_atividade.descricao)
+    return dict(rows=registros, pagina=pagina, paginas=paginas, total=total, empresa=empresa, tipo=tipo,tipo_descricao=tipo_descricao)

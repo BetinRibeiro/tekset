@@ -1,0 +1,33 @@
+{{extend 'layout.html'}}
+
+<div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-sm table-striped table-borderless table-bordered">
+              <thead>
+                <tr>
+                  <th colspan="3">RELATÓRIO DE REGISTRO DE BACKUPS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="3"><b>Sistema:</b> {{=registro_atividade.sistema.nome}}</td>
+                </tr>
+                <tr>
+                  <td><b>Data do Backup:</b> {{=registro_atividade.data_inicial.strftime('%d/%m/%Y')}}</td>
+                  <td colspan="3"><b>Hora do Backup:</b> {{=registro_atividade.hora_processo}}</td>
+                </tr>
+                <tr>
+                  <td><b>Executor:</b> {{=registro_atividade.responsavel}}</td>
+                  <td colspan="2"><b>Local do Backup:</b> {{=registro_atividade.local_backup}}</td>
+                </tr>
+                <tr></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

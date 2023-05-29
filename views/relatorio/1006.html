@@ -1,0 +1,44 @@
+{{extend 'layout.html'}}
+    
+
+<div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive" >
+            <table class="table table-bordered table-borderless table-sm table-striped">
+              <thead>
+                <tr>
+                    <th colspan="3" class="text-center"><b>REGISTRO DE DESVIOS DE QUALIDADE (RDQ)</b></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Reg:</b> {{=registro_atividade.referencia}}</td>
+                  <td colspan="2"><b>Local do Desvio:</b> {{=registro_atividade.local_backup}}</td>
+                </tr>
+                <tr>
+                  <td><b>Area do Desvio:</b> {{=registro_atividade.area_desvio}}</td>
+                  <td><b>Tipo de Desvio:</b> {{=registro_atividade.tipo_desvio}}</td>
+                  <td><b>Data do Desvio:</b> {{=registro_atividade.data_final.strftime('%d/%m/%Y')}}</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><b>Descrição:</b></td>
+                </tr>
+                <tr>
+                  <td colspan="3">{{=registro_atividade.descricao}}</td>
+                </tr>
+                <tr>
+                  <td><b>Avaliação da Criticidade:</b> {{=registro_atividade.avaliacao_criticidade}}</td>
+                  <td colspan="2"><b>Ciencia do Desvio:</b> {{=registro_atividade.ciente_desvio}}</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><b>Responsável Pela Ação:</b> {{=registro_atividade.responsavel_avaliacao}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,161 @@
+{{extend 'layout.html'}}
+{{from datetime import timedelta}}
+<div class="bg-light rounded p-4">
+            <div class="d-flex align-items-center justify-content-between mb-4 text-center">
+                <h6 class="mb-0">{{=total}} Registros ({{=pagina}}/{{=paginas}} Páginas)</h6>
+        </div>
+    
+    <div class="row">
+    <div class="col-md-6">
+<!--         <h5 class="text-left my-2">Pagina {{=pagina}}/{{=paginas}}</h5> -->
+    </div>
+    <div class="col-md-6" id="noprint">
+            {{if True:}}
+                <ul class="pagination m-2  justify-content-end">
+                    {{ if pagina != 1: }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ =URL(args=[usuario.id,1])}}">
+                            <i class="fa fa-angle-double-left"></i>
+                        </a>
+                    </li>
+                      {{ pass }}
+                       {{ if (paginas-pagina) > -3 and (pagina > 3)  : }}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ =URL(args=[usuario.id,pagina-3])}}">{{=pagina-3}}</a>
+                    </li>
+                       {{ pass }}
+                       {{ if (paginas-pagina) > -2 and (pagina > 2) : }}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ =URL(args=[usuario.id,pagina-2])}}">{{=pagina-2}}</a>
+                    </li>
+                       {{ pass }}
+                       {{ if (paginas-pagina) > -1 and (pagina != 1) : }}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ =URL(args=[usuario.id,pagina-1])}}">{{=pagina-1}}</a>
+                    </li>
+                       {{ pass }}
+                    {{ if (paginas) > 1: }}
+                    <li class="page-item active">
+                        <a class="page-link" href="#">{{=pagina}}</a>
+                    </li>
+                       {{ pass }}
+                    {{ if (paginas-pagina) > 0: }}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ =URL(args=[usuario.id,pagina+1])}}">{{=pagina+1}}</a>
+                    </li>
+                       {{ pass }}
+                    {{ if (paginas-pagina) > 1: }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ =URL(args=[usuario.id,pagina+2])}}">{{=pagina+2}}</a>
+                    </li>
+                        {{ pass }}
+                    {{ if (paginas-pagina) > 2: }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ =URL(args=[usuario.id,pagina+3])}}">{{=pagina+3}}</a>
+                    </li>
+                      {{ pass }}
+                    {{ if pagina != paginas: }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ =URL(args=[usuario.id,paginas])}}">
+                            <i class="fa fa-angle-double-right"></i>
+                        </a>
+                    </li>
+                      {{ pass }}
+                  </ul>
+            {{pass}}
+    </div>
+</div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-dark">
+<!--                         <th id="noprint" scope="col">Alterar</th> -->
+                        <th scope="col">Atividade</th>
+                        <th scope="col">Sistema</th>
+                        <th scope="col">Criador</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Modificador</th>
+                        <th scope="col">Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{for row in rows:}}
+                    <tr>
+<!--                     <th>
+                        <a href="{{=URL('alterar',args=row.id)}}">
+                            <i class="fa fa-fw fa-1x py-1 fa-pencil-square text-warning"></i>
+                        </a>
+                    </th> -->
+                    <td>{{=row.tipo}}</td>
+                    <td>{{=row.sistema.nome}}</td>
+                    <td>{{=row.created_by.first_name}} {{=row.created_by.last_name}}</td>
+                    <td>{{=(row.created_on-timedelta(hours=3)).strftime('%d/%m/%Y %H:%M')}}</td>
+                    <td>{{=row.modified_by.first_name}} {{=row.modified_by.last_name}}</td>
+                    <td>{{=(row.modified_on-timedelta(hours=3)).strftime('%d/%m/%Y %H:%M')}}</td>
+                   
+                    {{pass}}
+                </tbody>
+            </table>
+        </div>
+    
+    <div class="row">
+    <div class="col-md-6">
+<!--         <h5 class="text-left my-2">Pagina {{=pagina}}/{{=paginas}}</h5> -->
+    </div>
+    <div class="col-md-6" id="noprint">
+            {{if True:}}
+                <ul class="pagination m-2  justify-content-end">
+                    {{ if pagina != 1: }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ =URL(args=[usuario.id,1])}}">
+                            <i class="fa fa-angle-double-left"></i>
+                        </a>
+                    </li>
+                      {{ pass }}
+                       {{ if (paginas-pagina) > -3 and (pagina > 3)  : }}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ =URL(args=[usuario.id,pagina-3])}}">{{=pagina-3}}</a>
+                    </li>
+                       {{ pass }}
+                       {{ if (paginas-pagina) > -2 and (pagina > 2) : }}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ =URL(args=[usuario.id,pagina-2])}}">{{=pagina-2}}</a>
+                    </li>
+                       {{ pass }}
+                       {{ if (paginas-pagina) > -1 and (pagina != 1) : }}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ =URL(args=[usuario.id,pagina-1])}}">{{=pagina-1}}</a>
+                    </li>
+                       {{ pass }}
+                    {{ if (paginas) > 1: }}
+                    <li class="page-item active">
+                        <a class="page-link" href="#">{{=pagina}}</a>
+                    </li>
+                       {{ pass }}
+                    {{ if (paginas-pagina) > 0: }}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ =URL(args=[usuario.id,pagina+1])}}">{{=pagina+1}}</a>
+                    </li>
+                       {{ pass }}
+                    {{ if (paginas-pagina) > 1: }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ =URL(args=[usuario.id,pagina+2])}}">{{=pagina+2}}</a>
+                    </li>
+                        {{ pass }}
+                    {{ if (paginas-pagina) > 2: }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ =URL(args=[usuario.id,pagina+3])}}">{{=pagina+3}}</a>
+                    </li>
+                      {{ pass }}
+                    {{ if pagina != paginas: }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ =URL(args=[usuario.id,paginas])}}">
+                            <i class="fa fa-angle-double-right"></i>
+                        </a>
+                    </li>
+                      {{ pass }}
+                  </ul>
+            {{pass}}
+    </div>
+</div>
+    </div>

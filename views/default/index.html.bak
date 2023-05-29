@@ -1,0 +1,24 @@
+{{extend 'pagina_inicial.html'}}
+
+<a class="btn btn-primary" href="{{=URL('acs_empresa','index')}}">
+      <i class="fa fa-cog"></i>
+      Acessar
+</a>
+
+<div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <ol class="" >
+            <li>Usuario&nbsp; tem que ter a opção de vincular a uma empresa cleinte</li>
+            <li>sistemas tem que ter uma tela com a lsiat de perguntas e um botão deixando a pergunta verdadeira ou falsa e alterando no banco de dados&nbsp;</li>
+            <li>calculos de analise de risco em cada sistema e criar um relatorio do sistema&nbsp;</li>
+            <li>listar todas as atividades do sistema em ordem de cadastro&nbsp;</li>
+            <li>gestão de risco somente no capa</li>
+            <li>relatorio de cadas atividade&nbsp;</li>
+            <li>comportamento dinamico de cada tela de atividade&nbsp;</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
