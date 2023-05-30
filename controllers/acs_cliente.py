@@ -27,11 +27,13 @@ def index():
     limites = (paginacao*(pagina-1), (paginacao*pagina))
     registros = db((db.empresa_cliente.empresa==empresa.id)&(db.empresa_cliente.excluido==False)).select(
       limitby=limites,orderby=~db.empresa_cliente.id|db.empresa_cliente.nome)
-    return dict(rows=registros, pagina=pagina, paginas=paginas, total=total, empresa=empresa)
+    return dict(rows=registros, pagina=pagina, paginas=paginas, total=total, empresa=empresa, usuario=usuario)
 
 @auth.requires_login()
 def cadastrar():
     usuario = db.usuario_empresa(db.usuario_empresa.usuario==auth.user.id)   
+    if not 'Admi' in usuario.tipo:
+        redirect(URL('index'))
     empresa =db.empresa(usuario.empresa)
     response.view = 'generic.html' # use a generic view
     request.function='Cadastro de empresa_cliente '
@@ -48,6 +50,8 @@ def cadastrar():
 @auth.requires_login()
 def alterar():
     usuario = db.usuario_empresa(db.usuario_empresa.usuario==auth.user.id)
+    if not 'Admi' in usuario.tipo:
+        redirect(URL('index'))
     empresa_cliente = db.empresa_cliente(request.args(0, cast=int))
     if empresa_cliente.empresa!=usuario.empresa:
         redirect(URL('index'))

@@ -3,10 +3,12 @@
 <div class="bg-light rounded p-4">
     <div class="d-flex align-items-center justify-content-between mb-4 text-center">
         <h6 class="mb-0">{{=total}} Clientes ({{=pagina}}/{{=paginas}} Páginas)</h6>
+        {{if 'Admi' in usuario.tipo:}}
         <a class="btn btn-info btn-sm" href="{{=URL('cadastrar')}}">
             <i class="fa fa-fw fa-plus-square"></i>
             Cadastrar
         </a>
+        {{pass}}
     </div>
     <div class="row">
     <div class="col-md-6">
@@ -91,9 +93,11 @@
                     <td>{{=row.cnpj}}</td>
                     <td>{{=row.telefone}}</td>
                     <th class="text-right">
+        {{if 'Admi' in usuario.tipo:}}
                         <a href="{{=URL('alterar',args=row.id)}}">
                             <i class="fa fa-fw fa-1x py-1 fa-pencil-square text-warning"></i>
                         </a>
+                        {{pass}}
                         <a href="{{ =URL('acs_sistema','acessar_cliente',args=row.id)}}">
                             <i class="fa fa-fw fa-1x py-1 fa-folder-open text-success"></i>
                         </a>

@@ -1,13 +1,15 @@
 {{extend 'layout.html'}}
-{{if False:}}
+
+{{if True:}}
 <div class="container-fluid pt-4 px-4">
         <div class="row g-4">
           <div class="col-sm-6 col-xl-3">
             <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
               <i class="fa fa-pie-chart fa-3x text-primary"></i>
               <div class="ms-3">
-                <p class="mb-2">Entradas</p>
-                <h6 class="mb-0">R$ 159.180,00</h6>
+                <p class="mb-2">Total Atividades</p>
+                  {{total=total_atividade(empresa.id, "total")}}
+                <h6 class="mb-0">{{=total}}</h6>
               </div>
             </div>
           </div>
@@ -15,8 +17,9 @@
             <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
               <i class="fa fa-line-chart fa-3x text-primary"></i>
               <div class="ms-3">
-                <p class="mb-2">Saidas</p>
-                <h6 class="mb-0">R$ 0,00</h6>
+                <p class="mb-2">Atividades Concluidas</p>
+                  {{total=total_atividade(empresa.id, "concluido")}}
+                <h6 class="mb-0">{{=total}}</h6>
               </div>
             </div>
           </div>
@@ -24,8 +27,9 @@
             <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
               <i class="fa fa-bar-chart fa-3x text-primary"></i>
               <div class="ms-3">
-                <p class="mb-2">Processos</p>
-                <h6 class="mb-0">R$ 8.328,00</h6>
+                <p class="mb-2">Atividades Pendentes</p>
+                  {{total=total_atividade(empresa.id, "pendente")}}
+                <h6 class="mb-0">{{=total}}</h6>
               </div>
             </div>
           </div>
@@ -33,8 +37,9 @@
             <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
               <i class="fa fa-area-chart fa-3x text-primary"></i>
               <div class="ms-3">
-                <p class="mb-2">Patrimônio</p>
-                <h6 class="mb-0">R$ 153.987,15</h6>
+                <p class="mb-2">Gestões de Risco</p>
+                  {{total=total_atividade(empresa.id, "gr")}}
+                <h6 class="mb-0">{{=total}}</h6>
               </div>
             </div>
           </div>
@@ -44,53 +49,26 @@
           <div class="col-md-6"></div>
         </div>
         <div class="row pt-2">
+            {{for row in lista_registro_atividade:}}
           <div class="col-md-3">
-            <div class="card text-center">
-              <div class="card-header"> Financeiro</div>
+            <div class="card text-center p-2">
+              <div class="card-header"> {{=row[6:32]}}</div>
               <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+<!--                 <h5 class="card-title">{{=row[:4]}}</h5> -->
+                <a class="" href="{{=URL('acs_registro_atividade','index',args=row[:4])}}">
+<!--                 <p class="card-text">{{=row[6:]}}</p> -->
+                    </a>
+                <a class="" href="{{=URL('acs_registro_atividade','index',args=row[:4])}}">
+                                 <i class="fa fa-fw fa-4x py-1 fa-folder-open  text-primary"></i></a>
               </div>
-              <div class="card-footer text-muted"> 2 days ago </div>
+<!--               <div class="card-footer text-muted"> 2 days ago </div> -->
             </div>
           </div>
-          <div class="col-md-3">
-            <div class="card text-center">
-              <div class="card-header"> Produção</div>
-              <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-              <div class="card-footer text-muted"> 2 days ago </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card text-center">
-              <div class="card-header"> Recursos Humanos</div>
-              <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-              <div class="card-footer text-muted"> 2 days ago </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card text-center">
-              <div class="card-header"> Contabil</div>
-              <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-              <div class="card-footer text-muted"> 2 days ago </div>
-            </div>
-          </div>
+              {{pass}}
         </div>
       </div>
 {{pass}}
+{{if False:}}
 <div class="bg-light rounded p-4">
     <div class="d-flex align-items-center justify-content-between mb-4 text-center">
         <h6 class="mb-0">{{=empresa.nome}}</h6>
@@ -107,48 +85,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                        {{if not 'Analista' in usuario.tipo:}}
-                    <tr>
-                        <td>EMPRESAS</td>
-                        <td id="noprint" class="text-right">
-                            <a href="{{=URL('acs_cliente','index')}}">
-                                <i class="fa fa-fw fa-1x py-1 fa-folder-open  text-info"></i>
-                            </a>
-                        </td>
-                    </tr>
-                        {{pass}}
-                        {{if not 'Analista' in usuario.tipo:}}
-                    <tr>
-                        <td>COLABORADORES</td>
-                        <td id="noprint" class="text-right">
-                            <a href="{{=URL('acs_usuario','index')}}">
-                                <i class="fa fa-fw fa-1x py-1 fa-folder-open  text-info"></i>
-                            </a>
-                        </td>
-                    </tr>
-                        {{pass}}
-                    <tr>
-<!--                             <th id="noprint" scope="row">
-                                #
-                            </th> -->
-                            <td>SISTEMAS</td>
-<!--                             <td>0000</td> -->
-                            <td id="noprint" class="text-right">
-                                <a href="{{=URL('acs_sistema','index')}}">
-                                 <i class="fa fa-fw fa-1x py-1 fa-folder-open  text-info"></i></a>
-                            </td>
-                        </tr>
-                     <tr>
-<!--                             <th id="noprint" scope="row">
-                                #
-                            </th> -->
-                            <td>TODOS REGISTROS ==></td>
-<!--                             <td>0000</td> -->
-                            <td id="noprint" class="text-right">
-                                <a href="{{=URL('acs_registro_atividade','todos_registros')}}">
-                                 <i class="fa fa-fw fa-1x py-1 fa-folder-open  text-info"></i></a>
-                            </td>
-                        </tr>
+                    
                     {{for row in lista_registro_atividade:}}
                         <tr>
 <!--                             <th id="noprint" scope="row">
@@ -167,6 +104,8 @@
             </table>
         </div>
     </div>
+{{pass}}
+{{if False:}}
 <div class="py-5">
     <div class="container">
       <div class="row">
@@ -183,3 +122,4 @@
       </div>
     </div>
   </div>
+{{pass}}

@@ -72,6 +72,7 @@
                     <tr class="text-dark">
 <!--                         <th id="noprint" scope="col">Alterar</th> -->
                         <th scope="col">Referência</th>
+                        <th scope="col">Empresa</th>
                         <th scope="col">Nome</th>
                         <th scope="col">Versão</th>
                         <th scope="col">Status Sistema</th>
@@ -89,6 +90,15 @@
                         </a>
                     </th> -->
                     <td>{{=row.referencia}}</td>
+                        
+                        {{if row.empresa_cliente:}}
+                        
+                        
+                    <td>{{=row.empresa_cliente.nome}}</td>
+                        {{else:}}
+                    <td class="bg-danger">Sem Empresa</td>
+                        
+                        {{pass}}
                     <td>{{=row.nome}}</td>
                     <td>{{=row.versao}}</td>
                     <td>{{=row.status_sistema}}</td>
@@ -99,9 +109,11 @@
                     <td>SIM</td>
                         {{pass}}
                     <th id="noprint" class="text-right">
+                        {{if not 'Adfsdmi' in usuario.tipo:}}
                         <a href="{{=URL('alterar',args=row.id)}}">
                             <i class="fa fa-fw fa-1x py-1 fa-pencil-square text-warning"></i>
                         </a>
+                        {{pass}}
                         {{if not 'UP' in row.possibilidade_validacao:}}
                         <a href="{{=URL('analise',args=row.id)}}">
                             <i class="fa fa-fw fa-1x py-1 fa-list text-info"></i>

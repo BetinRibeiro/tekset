@@ -28,7 +28,7 @@ def index():
         redirect(URL(args=[tipo,paginas]))
     limites = (paginacao*(pagina-1), (paginacao*pagina))
     registros = db((db.registro_atividade.empresa==empresa.id)&(db.registro_atividade.excluido==False)&(db.registro_atividade.tipo.contains(tipo))).select(
-      limitby=limites,orderby=db.registro_atividade.finalizado|db.registro_atividade.data_inicial)
+      limitby=limites,orderby=db.registro_atividade.finalizado|db.registro_atividade.data_inicial|db.registro_atividade.id)
     return dict(rows=registros, pagina=pagina, paginas=paginas, total=total, empresa=empresa, tipo=tipo,tipo_descricao=tipo_descricao)
 
 
@@ -58,6 +58,7 @@ def cadastrar():
     db.registro_atividade.referencia.default=referencia
     form = SQLFORM(db.registro_atividade).process()
     if form.accepted:
+        disparar_email(form.vars.id)
         redirect(URL('index',args=tipo))
     elif form.errors:
         response.flash = 'Formulario não aceito'
@@ -80,6 +81,10 @@ def alterar():
     db.registro_atividade.responsavel_acao.requires = IS_IN_DB(db((db.usuario_empresa.empresa==usuario.empresa)&(db.usuario_empresa.ativo==True)), 'usuario_empresa.nome', '%(nome)s')
     db.registro_atividade.sistema.requires = IS_IN_DB(db((db.sistema.empresa==usuario.empresa)&(db.sistema.ativo==True)), 'sistema.id', '%(nome)s')
     
+    db.registro_atividade.circunspecto.writable=True
+    db.registro_atividade.circunspecto.readable=True
+    
+    db.registro_atividade.circunspecto.requires = IS_IN_DB(db((db.usuario_empresa.empresa==usuario.empresa)&(db.usuario_empresa.ativo==True)), 'usuario_empresa.usuario', '%(nome)s')
     
     total = db((db.gestao_de_risco.registro_atividade==registro_atividade.id)&(db.gestao_de_risco.solucionada==False)).count()
     
@@ -89,9 +94,22 @@ def alterar():
     else:
         db.registro_atividade.eficaz.writable=False
         db.registro_atividade.eficaz.readable=False
+    if registro_atividade.finalizado==True:
+        bloqueia_altreracoes()
+        db.registro_atividade.data_finalizacao.writable=True
+        db.registro_atividade.data_finalizacao.readable=True
+    else:
+        db.registro_atividade.data_finalizacao.writable=False
+        db.registro_atividade.data_finalizacao.readable=False
+        
 
+    db.registro_atividade.sistema.writable=False
+    db.registro_atividade.sistema.readable=True
+    db.registro_atividade.excluido.writable=False
+    db.registro_atividade.excluido.readable=False
     form = SQLFORM(db.registro_atividade, request.args(0, cast=int), deletable=False)
     if form.process().accepted:
+        disparar_email(form.vars.id)
         redirect(URL('index',args=tipo))
     elif form.errors:
         response.flash = 'Formulario não aceito'
@@ -145,13 +163,19 @@ def cadastrar_gr():
     response.view = "generic.html"
     request.function="Cadastrar Gestão de Risco"
     db.gestao_de_risco.registro_atividade.default = registro_atividade.id
+    
+    db.gestao_de_risco.circunspecto.writable=True
+    db.gestao_de_risco.circunspecto.readable=True
+    
+    db.gestao_de_risco.circunspecto.requires = IS_IN_DB(db((db.usuario_empresa.empresa==usuario.empresa)&(db.usuario_empresa.ativo==True)), 'usuario_empresa.usuario', '%(nome)s')
     form = SQLFORM(db.gestao_de_risco).process()
     if form.accepted:
         calcula_classe_risco_prioridade(form.vars.id)
-        redirect(URL('gestao_risco',args=registro_atividade.id))
+        a=disparar_email_gr(form.vars.id)
+        redirect(URL('gestao_risco',args=[registro_atividade.id,a]))
     elif form.errors:
         response.flash="Formulario Não Aceito"
-    return dict(form=form, ra=registro_atividade)
+    return dict(form=form)
 
 @auth.requires_login()
 def alterar_gr():
@@ -163,10 +187,16 @@ def alterar_gr():
         redirect(URL('default','index'))
     response.view = "generic.html"
     request.function="Alterar Gestão de Risco"
+    
+    db.gestao_de_risco.circunspecto.writable=True
+    db.gestao_de_risco.circunspecto.readable=True
+    
+    db.gestao_de_risco.circunspecto.requires = IS_IN_DB(db((db.usuario_empresa.empresa==usuario.empresa)&(db.usuario_empresa.ativo==True)), 'usuario_empresa.usuario', '%(nome)s')
     form = SQLFORM(db.gestao_de_risco, request.args(0, cast=int))
     if form.process().accepted:
         calcula_classe_risco_prioridade(form.vars.id)
-        redirect(URL('gestao_risco',args=registro_atividade.id))
+        a=disparar_email_gr(form.vars.id)
+        redirect(URL('gestao_risco',args=[registro_atividade.id,a]))
     elif form.errors:
         response.flash="Formulario Não Aceito"
     return dict(form=form)

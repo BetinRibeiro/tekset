@@ -74,7 +74,9 @@
                         <th scope="col">Nome</th>
                         <th scope="col">Email</th>
                         <th scope="col">Tipo</th>
+                        {{if not 'Anali' in usuario.tipo:}}
                         <th id="noprint" class="text-right">Acessar</th>
+                        {{pass}}
                     </tr>
                 </thead>
                 <tbody>
@@ -85,16 +87,31 @@
                             <i class="fa fa-fw fa-1x py-1 fa-pencil-square text-warning"></i>
                         </a>
                     </th> -->
-                    <td>{{=row.usuario.first_name}}{{=row.usuario.lest_name}}</td>
+                    <td>{{=row.usuario.first_name}} {{=row.usuario.last_name}}</td>
                     <td>{{=row.usuario.email}}</td>
                     <td>{{=row.tipo}}</td>
+                        {{if not 'Anali' in usuario.tipo:}}
                     <th class="text-right">
+                        {{if 'Coor' in usuario.tipo:}}
+                        {{if 'Anal' in row.tipo:}}
                         <a href="{{=URL('alterar',args=row.id)}}">
                             <i class="fa fa-fw fa-1x py-1 fa-pencil-square text-warning"></i>
                         </a>
-                        <a href="#">
+                        {{else:}}
+                        <a href="#" class='disabled'>
+                            <i class="fa fa-fw fa-1x py-1 fa-pencil-square text-danger"></i>
+                        </a>
+                        {{pass}}
+                        {{pass}}
+                        {{if 'Admi' in usuario.tipo:}}
+                        
+                        <a href="{{=URL('alterar',args=row.id)}}">
+                            <i class="fa fa-fw fa-1x py-1 fa-pencil-square text-warning"></i>
+                        </a>
+                        <a href="{{=URL('registros_atividade',args=row.id)}}">
                             <i class="fa fa-fw fa-1x py-1 fa-list text-danger"></i>
                         </a>
+                        {{pass}}
 <!--                         <a href="#">
                             <i class="fa fa-fw fa-1x py-1 fa-list text-info"></i>
                         </a>
@@ -105,6 +122,7 @@
                             <i class="fa fa-fw fa-1x py-1 fa-circle "></i>
                         </a> -->
                     </th>
+                        {{pass}}
                     {{pass}}
                 </tbody>
             </table>

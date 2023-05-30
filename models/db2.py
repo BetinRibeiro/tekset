@@ -72,6 +72,7 @@ db.define_table('registro_atividade',
                 Field('email_responsalvel', 'string', label='Email'),
                 
                 Field('observacao', 'text', label='Observação', writable=False, readable=False),
+                Field('data_finalizacao', 'date', writable=False, readable=False, label='Data Finalização'),
                 Field('finalizado', 'boolean', writable=True, readable=True, default=False),
                 Field('excluido', 'boolean', writable=True, readable=True, default=False),
                 auth.signature,
@@ -84,12 +85,16 @@ db.registro_atividade.data_inicial.requires = IS_DATE(format=('%d-%m-%Y'),
 db.registro_atividade.data_final.requires = IS_DATE(format=('%d-%m-%Y'),
                    error_message='Padrão de data 28-08-1963')
 
+db.registro_atividade.data_finalizacao.requires = IS_DATE(format=('%d-%m-%Y'),
+                   error_message='Padrão de data 28-08-1963')
 
 
 
 
 db.define_table('gestao_de_risco',
+                Field('empresa','reference empresa', writable=False, readable=False, label='empresa'),
                 Field('registro_atividade','reference registro_atividade', writable=False, readable=True, label='CAPA'),
+                Field('circunspecto','reference auth_user', writable=True, label='Circunspecto'),
                 Field('cenario_risco', 'string', label='Cenario Risco',requires = IS_UPPER()),
                 Field('efeito_risco', 'string', label='Efeito Risco',requires = IS_UPPER()),
                 Field('severidade', 'string', label='Severidade'),

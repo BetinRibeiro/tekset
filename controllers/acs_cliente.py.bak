@@ -6,7 +6,7 @@ def index():
     empresa =db.empresa(usuario.empresa)
     if usuario.ativo==False:
         redirect(URL('default','index'))
-    paginacao = 2
+    paginacao = 35
     if len(request.args) == 0:
         pagina = 1
     else:
@@ -27,7 +27,7 @@ def index():
     limites = (paginacao*(pagina-1), (paginacao*pagina))
     registros = db((db.empresa_cliente.empresa==empresa.id)&(db.empresa_cliente.excluido==False)).select(
       limitby=limites,orderby=~db.empresa_cliente.id|db.empresa_cliente.nome)
-    return dict(rows=registros, pagina=pagina, paginas=paginas, total=total, empresa=empresa)
+    return dict(rows=registros, pagina=pagina, paginas=paginas, total=total, empresa=empresa, usuario=usuario)
 
 @auth.requires_login()
 def cadastrar():

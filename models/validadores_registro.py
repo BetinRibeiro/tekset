@@ -554,6 +554,41 @@ def validador_rvp():
     
     return True
     
+def bloqueia_altreracoes():
+    
+    db.registro_atividade.excluido.writable=False
+    db.registro_atividade.sistema.writable=False
+    db.registro_atividade.circunspecto.writable=False
+    db.registro_atividade.empresa.writable=False
+    db.registro_atividade.tipo.writable=False
+    
+    db.registro_atividade.data_inicial.writable=False
+    db.registro_atividade.responsavel.writable=False
+    db.registro_atividade.descricao.writable=False
+    db.registro_atividade.descricao.default='Atualização de Versão'
+    db.registro_atividade.identificacao_desvio_cm.writable=False
+    db.registro_atividade.registro_mudanca.writable=False
+    db.registro_atividade.motivo.writable=False
+    db.registro_atividade.procedimento_implantacao.writable=False
+    db.registro_atividade.analise_critica.writable=False
+    db.registro_atividade.hora_processo.writable=False
+    db.registro_atividade.local_backup.writable=False
+    db.registro_atividade.identificacao_pop.writable=False
+    db.registro_atividade.motivo.writable=False
+    db.registro_atividade.area_desvio.writable=False
+    db.registro_atividade.tipo_desvio.writable=False
+    db.registro_atividade.avaliacao_criticidade.writable=False
+    db.registro_atividade.ciente_desvio.writable=False
+    db.registro_atividade.responsavel_acao.writable=False
+    db.registro_atividade.versao_inicial.writable=False
+    db.registro_atividade.nova_versao.writable=False
+    db.registro_atividade.analise_critica_bpf.writable=False
+    db.registro_atividade.eficaz.writable=False
+    db.registro_atividade.data_final.writable=False
+    db.registro_atividade.responsavel_avaliacao.writable=False
+    db.registro_atividade.email_responsalvel.writable=False
+    db.registro_atividade.observacao.writable=True
+    return True
     
 def validador(cod_tipo):
     cod_tipo=str(cod_tipo)

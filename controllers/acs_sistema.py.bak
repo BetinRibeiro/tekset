@@ -27,7 +27,7 @@ def index():
     limites = (paginacao*(pagina-1), (paginacao*pagina))
     registros = db((db.sistema.empresa==empresa.id)&(db.sistema.excluido==False)).select(
       limitby=limites,orderby=~db.sistema.id|db.sistema.nome)
-    return dict(rows=registros, pagina=pagina, paginas=paginas, total=total, empresa=empresa)
+    return dict(rows=registros, pagina=pagina, paginas=paginas, total=total, empresa=empresa, usuario=usuario)
 
 @auth.requires_login()
 def cadastrar():
@@ -37,8 +37,8 @@ def cadastrar():
     request.function='Cadastro de sistema '
     db.sistema.empresa.default=usuario.empresa
     referencia = gerar_referencia()
-    db.sistema.empresa_cliente.writable=True
-    db.sistema.empresa_cliente.readable=True
+    db.sistema.empresa_cliente.writable=False
+    db.sistema.empresa_cliente.readable=False
     db.sistema.empresa_cliente.requires = IS_IN_DB(db((db.empresa_cliente.empresa==usuario.empresa)&(db.empresa_cliente.ativo==True)), 'empresa_cliente.id', '%(nome)s')
     db.sistema.referencia.readable=False
     db.sistema.referencia.default=referencia
@@ -60,10 +60,21 @@ def alterar():
         redirect(URL('index'))
     response.view = 'generic.html' # use a generic view
     request.function='Alterar sistema'
-    
-    db.sistema.empresa_cliente.writable=True
-    db.sistema.empresa_cliente.readable=True
-    db.sistema.empresa_cliente.requires = IS_IN_DB(db((db.empresa_cliente.empresa==usuario.empresa)&(db.empresa_cliente.ativo==True)), 'empresa_cliente.id', '%(nome)s')
+    if 'Admi' in usuario.tipo:
+        db.sistema.empresa_cliente.writable=True
+        db.sistema.empresa_cliente.readable=True
+        db.sistema.nome.writable=True
+        db.sistema.nome.readable=True
+        db.sistema.empresa_cliente.requires = IS_IN_DB(db((db.empresa_cliente.empresa==usuario.empresa)&(db.empresa_cliente.ativo==True)), 'empresa_cliente.id', '%(nome)s')
+    else:
+#         redirect(URL('index'))
+        db.sistema.empresa_cliente.writable=False
+        db.sistema.empresa_cliente.readable=True
+        db.sistema.nome.writable=False
+        db.sistema.nome.readable=True
+#     db.sistema.empresa_cliente.writable=True
+#     db.sistema.empresa_cliente.readable=True
+#     db.sistema.empresa_cliente.requires = IS_IN_DB(db((db.empresa_cliente.empresa==usuario.empresa)&(db.empresa_cliente.ativo==True)), 'empresa_cliente.id', '%(nome)s')
     form = SQLFORM(db.sistema, request.args(0, cast=int), deletable=False)
     if form.process().accepted:
         verifica_possibilidade_validacao(form.vars.id)
@@ -191,7 +202,7 @@ def cadastrar_com_cliente():
     form = SQLFORM(db.sistema).process()
     if form.accepted:
         verifica_possibilidade_validacao(form.vars.id)
-        redirect(URL('index'))
+        redirect(URL('acessar_cliente', args=empresa_cliente.id))
     elif form.errors:
         response.flash = 'Formulario não aceito'
     return  dict(form=form)

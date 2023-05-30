@@ -34,7 +34,7 @@ def index():
       limitby=limites,orderby=~db.usuario_empresa.id)
     consul=(request.args(1))
     liberado=True
-    return dict(rows=registros, pagina=pagina, paginas=paginas, total=total, consul=consul, liberado=liberado,empresa=empresa)
+    return dict(rows=registros, pagina=pagina, paginas=paginas, total=total, consul=consul, liberado=liberado,empresa=empresa,usuario=usuario)
 
 @auth.requires_login()
 def alterar():
@@ -42,7 +42,11 @@ def alterar():
         response.view = 'generic.html' # use a generic view
         request.function='Alterar'
         usuario_empresa= db.usuario_empresa(request.args(0, cast=int))
-        
+        usuario = db.usuario_empresa(db.usuario_empresa.usuario==auth.user.id)
+        if not "Admin" in usuario.tipo:
+            if not "Coor" in usuario.tipo:
+                response.flash = 'Você não tem autorização'
+                redirect(URL('index'))
         form = SQLFORM(db.usuario_empresa, request.args(0, cast=int), deletable=False)
         if form.process().accepted:
             redirect(URL('alterar_user', args=usuario_empresa.usuario))
@@ -58,7 +62,10 @@ def alterar_user():
         response.view = 'generic.html' # use a generic view
         request.function='Alterar'
         usuario = db.auth_user(request.args(0, cast=int))
-        
+        usuario_empresa = db.usuario_empresa(db.usuario_empresa.usuario==auth.user.id)
+        if not "Admin" in usuario_empresa.tipo:
+            response.flash = 'Você não tem autorização'
+            redirect(URL('index'))
         form = SQLFORM(db.auth_user, request.args(0, cast=int), deletable=False)
         if form.process().accepted:
             redirect(URL('index'))
@@ -74,6 +81,9 @@ def cadastrar():
     usuario = db.usuario_empresa(db.usuario_empresa.usuario==auth.user.id)
     if not usuario:
         redirect(URL('acs_empresa','cadastrar'))
+    
+            
+            
     empresa = db.empresa(usuario.empresa)
     form = SQLFORM(db.auth_user).process()
     if form.accepted:
@@ -93,6 +103,15 @@ def vincular_login():
     db.usuario_empresa.empresa.default = request.args(0, cast=int)
     db.usuario_empresa.usuario.default = request.args(1, cast=int)
     db.usuario_empresa.tipo.default = "Administrador"
+    usuario = db.usuario_empresa(db.usuario_empresa.usuario==auth.user.id)
+    if 'Coordenador' in usuario.tipo:
+        if 'Empresa' in usuario.tipo:
+            db.usuario_empresa.tipo.requires = IS_IN_SET(['Analista Empresa', 'Analista Cliente'])
+            db.usuario_empresa.tipo.deafult='Analista Empresa'
+        else:
+            db.usuario_empresa.tipo.requires = IS_IN_SET(['Analista Cliente'])
+            db.usuario_empresa.tipo.deafult='Analista Cliente'
+            db.usuario_empresa.tipo.readable=False
     form = SQLFORM(db.usuario_empresa).process()
     if form.accepted:
         redirect(URL('index'))

@@ -91,3 +91,20 @@ def gerar_revisao_periodica(id_sistema):
     except:
         return False
     return True
+
+
+def total_atividade(id_empresa, tipo):
+    rows = db(db.gestao_de_risco.empresa==None).select()
+    for row in rows:
+        registro_atividade = db.registro_atividade(row.registro_atividade)
+        row.empresa=registro_atividade.empresa
+        row.update_record()
+    if 'total' in tipo:
+        total = db((db.registro_atividade.empresa==id_empresa)&(db.registro_atividade.excluido==False)).count()
+    elif 'concluido' in tipo:
+        total = db((db.registro_atividade.empresa==id_empresa)&(db.registro_atividade.finalizado==True)&(db.registro_atividade.excluido==False)).count()
+    elif 'pendente' in tipo:
+        total = db((db.registro_atividade.empresa==id_empresa)&(db.registro_atividade.finalizado==False)&(db.registro_atividade.excluido==False)).count()
+    elif 'gr' in tipo:
+        total = db((db.gestao_de_risco.empresa==id_empresa)&(db.gestao_de_risco.excluido==False)).count()
+    return total
