@@ -77,6 +77,8 @@
 'Demo': 'Demo',
 'Deployment Recipes': 'Receitas de deploy',
 'Description': 'Descrição',
+'Desenvolvido por ': 'Desenvolvido por ',
+'Desenvolvido por Rogoberto ribeiro da silva / Leonardo Jesus Nascimento ': 'Desenvolvido por Rogoberto ribeiro da silva / Leonardo Jesus Nascimento ',
 'design': 'projeto',
 'Design': 'Design',
 'DISK': 'DISK',
