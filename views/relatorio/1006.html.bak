@@ -1,5 +1,5 @@
 {{extend 'layout.html'}}
-
+    
 
 <div class="py-5">
     <div class="container">
@@ -20,7 +20,7 @@
                 <tr>
                   <td><b>Area do Desvio:</b> {{=registro_atividade.area_desvio}}</td>
                   <td><b>Tipo de Desvio:</b> {{=registro_atividade.tipo_desvio}}</td>
-                  <td><b>Data do Desvio:</b> {{=registro_atividade.data_final}}</td>
+                  <td><b>Data do Desvio:</b> {{=registro_atividade.data_final.strftime('%d/%m/%Y')}}</td>
                 </tr>
                 <tr>
                   <td colspan="3"><b>Descrição:</b></td>

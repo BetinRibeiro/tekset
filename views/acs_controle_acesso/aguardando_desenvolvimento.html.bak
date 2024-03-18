@@ -1,0 +1,8 @@
+{{extend 'layout.html'}}
+<h4>
+    Desculpe-nos pelo inconveniente!
+
+A tela que você está tentando acessar está atualmente em desenvolvimento. Estamos trabalhando arduamente para torná-la disponível o mais rápido possível. Por favor, volte mais tarde para verificar o progresso.
+
+Agradecemos a sua paciência e compreensão.
+</h4>

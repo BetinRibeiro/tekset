@@ -248,6 +248,7 @@
 'Traceback': 'Traceback',
 'Trocar Cooperativa': 'Trocar Cooperativa',
 'Trocar Empresa': 'Trocar Empresa',
+'Trocar Tipo Usuario': 'Trocar Tipo Usuario',
 'Twitter': 'Twitter',
 'Two-step Login Authentication Code': 'Código de Autenticação de Login em Dois Fatores',
 'unable to parse csv file': 'não foi possível analisar arquivo csv',

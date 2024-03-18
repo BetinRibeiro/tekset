@@ -1,0 +1,38 @@
+{{extend 'layout.html'}}
+<div class="py-5 text-center" >
+    <div class="container">
+      <div class="row">
+        <div class="mx-auto col-lg-10">
+          <h2>{{=empresa}}</h2>
+          <p class="mb-3 mx-auto w-75 lead">{{=auth.user.first_name}} {{=auth.user.last_name}}</p>
+          <div class="row">
+            <div class="col-md-4 mt-4 px-4 col-6">
+                <i class="d-block fa fa-4x mb-3 text-muted fa-users"></i>
+              <h5> <b>Clientes</b></h5>
+              <p class="mb-3">I should be incapable of drawing a single stroke.</p>
+                <a class="btn btn-primary" href="{{=URL('acs_usuarios_cliente', 'index')}}">
+                    <i class="fa fa-fw fa-folder-open"></i>
+                    Acessar
+                </a>
+            </div>
+            <div class="col-md-4 mt-4 px-4 col-6"> 
+                <i class="d-block fa fa-4x mb-3 text-muted fa-list"></i>
+              <h5>Inventario</h5>
+              <p class="mb-3">A wonderful serenity has taken possession.</p>
+                <a class="btn btn-primary" href="{{=URL('acs_inventario_cliente', 'index')}}">
+                    <i class="fa fa-fw fa-folder-open"></i>Acessar</a>
+            </div>
+            <div class="col-md-4 mt-4 px-4 col-6">
+                <i class="d-block fa fa-4x mb-3 text-muted fa-list-ul"></i>
+              <h5> <b>Atividades</b></h5>
+              <p class="mb-3">Like these sweet mornings of spring.</p>
+                <a class="btn btn-primary" href="{{=URL('acs_registro_atividade_cliente', 'index')}}">
+                    <i class="fa fa-fw fa-folder-open"></i>
+                    Acessar
+                </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

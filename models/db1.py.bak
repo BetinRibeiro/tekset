@@ -4,7 +4,9 @@
 
 db.define_table('sistema',
                 Field('empresa','reference empresa', writable=False, readable=False, label='Empresa'),
+                Field('empresa_cliente','reference empresa_cliente', writable=False, readable=False, label='Empresa'),
                 Field('referencia', 'string', writable=False, label='Referencia'),
+                Field('nome_empresa', 'string', writable=False, readable=False, label='Nome do Empresa'),
                 Field('nome', 'string', label='Nome do Sistema',requires = IS_UPPER()),
                 Field('versao', 'string', label='Versão',requires = IS_UPPER()),
                 Field('versao_atual', 'string', label='Versão atual',requires = IS_UPPER()),
@@ -50,7 +52,7 @@ db.define_table('sistema',
                 Field('ativo', 'boolean', writable=True, readable=True, default=True),
                 Field('excluido', 'boolean', writable=True, readable=True, default=False),
                 auth.signature,
-                format='%(nome)s')
+                format='%(nome_empresa)s%(nome)s')
 
 db.sistema.id.writable=False
 db.sistema.id.readable=False

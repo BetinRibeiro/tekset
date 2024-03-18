@@ -1,0 +1,19 @@
+# -*- coding: utf-8 -*-
+@auth.requires_login()
+def analista_empresa():
+#     redirect(URL('aguardando_desenvolvimento'))
+    usuario = db.usuario_empresa(db.usuario_empresa.usuario==auth.user.id)
+    if not usuario:
+        redirect(URL('default','index'))
+    if not "Analista" in usuario.tipo:
+        redirect(URL('default','index'))
+    if usuario.ativo==False:
+        redirect(URL('default','index'))
+    empresa = db.empresa(usuario.empresa)
+    cliente = db.cliente(usuario.cliente)
+    return locals()
+
+
+def aguardando_desenvolvimento():
+    usuario = db.usuario_empresa(db.usuario_empresa.usuario==auth.user.id)
+    return locals()

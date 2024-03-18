@@ -13,7 +13,7 @@
           initial-scale = 1.0 retains dimensions instead of zooming out if page height > device height
           user-scalable = yes allows the user to zoom in -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{=response.title or request.application}}</title>
+    <title>Revisa</title>
     <!-- http://dev.w3.org/html5/markup/meta.name.html -->
     <meta name="application-name" content="{{=request.application}}">
     <!-- Speaking of Google, don't forget to set your site up:
@@ -27,7 +27,7 @@
     <link rel="apple-touch-icon" href="{{=URL('static','images/ico.png')}}">
     <!-- All JavaScript at the bottom, except for Modernizr which enables
          HTML5 elements & feature detects -->
-    <script src="{{=URL('static','js/modernizr-2.8.3.min.js')}}"></script>
+<!--     <script src="{{=URL('static','js/modernizr-2.8.3.min.js')}}"></script> -->
     <!-- Favicons -->
     {{include 'web2py_ajax.html'}} <!-- this includes jquery.js, calendar.js/.css and web2py.js -->
     {{block head}}{{end}}
@@ -38,7 +38,7 @@
         .btn{
              display: none;
         }
-        #noprint { display:none; } 
+        #noprint { display:none; }
       a:link{font:15px "verdana"; color:#8B4513; text-decoration:none;}
 
 a:hover{font:20px "verdana"; color:black; text-decoration:underline;}
@@ -47,7 +47,7 @@ a:hover{font:20px "verdana"; color:black; text-decoration:underline;}
     <div class="w2p_flash alert alert-dismissable">{{=response.flash or ''}}</div>
     <!-- Navbar ======================================= -->
     <nav class="navbar navbar-light navbar-expand-md bg-faded bg-dark navbar-dark justify-content-center">
-       <a href="{{=URL('default','index')}}" class="navbar-brand d-flex w-50 mr-auto">{{=request.application}}</a>
+       <a href="{{=URL('default','index')}}" class="navbar-brand d-flex w-50 mr-auto">REVISA</a>
        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-icon"></span>
        </button>
@@ -82,8 +82,9 @@ a:hover{font:20px "verdana"; color:black; text-decoration:underline;}
             <div class="dropdown-menu dropdown-menu-right">
               {{if auth.user:}}
               <a class="dropdown-item" href="{{=URL('default','user/profile')}}">{{=T('Profile')}}</a>
-                {{if not  auth.user.id>=5:}}
+                {{if not  auth.user.id>=3:}}
               <a class="dropdown-item" href="{{=URL('acs_empresa','alterar_usuario')}}">{{=T('Trocar Empresa')}}</a>
+              <a class="dropdown-item" href="{{=URL('acs_usuario','alterar')}}">{{=T('Trocar Tipo Usuario')}}</a>
                 {{pass}}
               {{if 'change_password' not in auth.settings.actions_disabled:}}
               <a class="dropdown-item" href="{{=URL('default','user/change_password')}}">{{=T('Change Password')}}</a>
@@ -92,10 +93,14 @@ a:hover{font:20px "verdana"; color:black; text-decoration:underline;}
               {{else:}}
               <a class="dropdown-item" href="{{=URL('default','user/login')}}">{{=T('Login')}}</a>
               {{if 'register' not in auth.settings.actions_disabled:}}
+                {{if False:}}
               <a class="dropdown-item" href="{{=URL('default','user/register')}}">{{=T('Sign up')}}</a>
+                {{pass}}
               {{pass}}
               {{if 'retrieve_password' not in auth.settings.actions_disabled:}}
+                {{if False:}}
               <a class="dropdown-item" href="{{=URL('default','user/retrieve_password')}}">{{=T('Lost Password')}}</a>
+              {{pass}}
               {{pass}}
               {{pass}}
             </div>
@@ -116,15 +121,15 @@ a:hover{font:20px "verdana"; color:black; text-decoration:underline;}
     </div>
 
     {{block footer}} <!-- this is default footer -->
-    <footer class="footer container-fluid">
+    <footer class="footer container-fluid" id="noprint">
       <div class="row">
         <div class="col-md-12">
           <div class="copyright pull-left">{{=T('Copyright')}} &#169; {{=request.now.year}}</div>
           <div id="poweredBy" class="pull-right">
             {{=T('Desenvolvido por ')}}
-            <a href="https://www.arsenalsystembr.com.br/welcome/default/index">Arsenal System</a>
-              <a href="#"> E </a>
-            <a href="http://www.teckpcs.com/">Teckpcs</a>
+            <a href="https://www.arsenalsystembr.com.br/welcome/default/index"  target="blank">Arsenal System</a>
+              <a href="#"> e </a>
+            <a href="https://www.teckpcs.com/" target="blank">Teckpcs</a>
           </div>
         </div>
       </div>

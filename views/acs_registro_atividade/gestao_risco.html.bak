@@ -114,9 +114,29 @@
                     <td>{{=row.responsavel_acao}}</td>
                         
                     <th  id="noprint"class="text-right">
+                        {{if row.solucionada:}}
+                        <a href="{{=URL('modificar_status',args=row.id)}}">
+                            <i class="fa fa-fw fa-1x py-1 fa-check-square text-success"></i>
+                        </a>
+                        {{else:}}
+        {{if not 'Anali' in usuario.tipo:}}
                         <a href="{{=URL('alterar_gr',args=row.id)}}">
                             <i class="fa fa-fw fa-1x py-1 fa-pencil-square text-warning"></i>
                         </a>
+                        <a href="{{=URL('modificar_status',args=row.id)}}">
+                            <i class="fa fa-fw fa-1x py-1 fa-window-close text-danger"></i>
+                        </a>
+                        {{else:}}
+                        {{if row.solucionada:}}
+                            <i class="fa fa-fw fa-1x py-1 fa-check-square text-success"></i>
+                        
+                        {{else:}}
+                            <i class="fa fa-fw fa-1x py-1 fa-window-close text-danger"></i>
+                        
+                        {{pass}}
+                        
+                        {{pass}}
+                        {{pass}}
 <!--                         <a href="#">
                             <i class="fa fa-fw fa-1x py-1 fa-list text-info"></i>
                         </a>

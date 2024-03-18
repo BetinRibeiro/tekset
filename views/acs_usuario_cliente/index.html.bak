@@ -1,0 +1,189 @@
+{{extend 'layout.html'}}
+
+<div class="bg-light rounded p-4">
+            <div class="d-flex align-items-center justify-content-between mb-4 text-center">
+                <h6 class="mb-0">{{=total}} Colaboradores ({{=pagina}}/{{=paginas}} Páginas)</h6>
+                <a class="btn btn-info btn-sm" href="{{=URL('cadastrar', args=empresa_cliente.id)}}"><i class="fa fa-fw fa-plus-square"></i> Cadastrar</a>
+        </div>
+    
+    <div class="row">
+    <div class="col-md-6">
+<!--         <h5 class="text-left my-2">Pagina {{=pagina}}/{{=paginas}}</h5> -->
+    </div>
+    <div class="col-md-6" id="noprint">
+            {{if True:}}
+               <ul class="pagination m-2  justify-content-end">
+                    {{ if pagina != 1: }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ =URL(args=[empresa_cliente.id,1])}}">
+                            <i class="fa fa-angle-double-left"></i>
+                        </a>
+                    </li>
+                      {{ pass }}
+                       {{ if (paginas-pagina) > -3 and (pagina > 3)  : }}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ =URL(args=[empresa_cliente.id,pagina-3])}}">{{=pagina-3}}</a>
+                    </li>
+                       {{ pass }}
+                       {{ if (paginas-pagina) > -2 and (pagina > 2) : }}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ =URL(args=[empresa_cliente.id,pagina-2])}}">{{=pagina-2}}</a>
+                    </li>
+                       {{ pass }}
+                       {{ if (paginas-pagina) > -1 and (pagina != 1) : }}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ =URL(args=pagina[empresa_cliente.id,-1])}}">{{=pagina-1}}</a>
+                    </li>
+                       {{ pass }}
+                    {{ if (paginas) > 1: }}
+                    <li class="page-item active">
+                        <a class="page-link" href="#">{{=pagina}}</a>
+                    </li>
+                       {{ pass }}
+                    {{ if (paginas-pagina) > 0: }}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ =URL(args=pagina[empresa_cliente.id,+1])}}">{{=pagina+1}}</a>
+                    </li>
+                       {{ pass }}
+                    {{ if (paginas-pagina) > 1: }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ =URL(args=pagina[empresa_cliente.id,+2])}}">{{=pagina+2}}</a>
+                    </li>
+                        {{ pass }}
+                    {{ if (paginas-pagina) > 2: }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ =URL(args=pagina[empresa_cliente.id,+3])}}">{{=pagina+3}}</a>
+                    </li>
+                      {{ pass }}
+                    {{ if pagina != paginas: }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ =URL(args=paginas[empresa_cliente.id,paginas])}}">
+                            <i class="fa fa-angle-double-right"></i>
+                        </a>
+                    </li>
+                      {{ pass }}
+                  </ul>
+            {{pass}}
+    </div>
+</div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-dark">
+<!--                         <th id="noprint" scope="col">Alterar</th> -->
+                        <th scope="col">Nome</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Tipo</th>
+                        {{if not 'Anali' in usuario.tipo:}}
+                        <th id="noprint" class="text-right">Acessar</th>
+                        {{pass}}
+                    </tr>
+                </thead>
+                <tbody>
+                    {{for row in rows:}}
+                    <tr>
+<!--                     <th>
+                        <a href="{{=URL('alterar',args=row.id)}}">
+                            <i class="fa fa-fw fa-1x py-1 fa-pencil-square text-warning"></i>
+                        </a>
+                    </th> -->
+                    <td>{{=row.usuario.first_name}} {{=row.usuario.last_name}}</td>
+                    <td>{{=row.usuario.email}}</td>
+                    <td>{{=row.tipo}}</td>
+                        {{if not 'Anali' in usuario.tipo:}}
+                    <th class="text-right">
+                        {{if 'Coor' in usuario.tipo:}}
+                        {{if 'Anal' in row.tipo:}}
+                        <a href="{{=URL('alterar',args=row.id)}}">
+                            <i class="fa fa-fw fa-1x py-1 fa-pencil-square text-warning"></i>
+                        </a>
+                        {{else:}}
+                        <a href="#" class='disabled'>
+                            <i class="fa fa-fw fa-1x py-1 fa-pencil-square text-danger"></i>
+                        </a>
+                        {{pass}}
+                        {{pass}}
+                        
+                        <a href="{{=URL('alterar',args=row.id)}}">
+                            <i class="fa fa-fw fa-1x py-1 fa-pencil-square text-warning"></i>
+                        </a>
+                        <a href="{{=URL('registros_atividade',args=row.id)}}">
+                            <i class="fa fa-fw fa-1x py-1 fa-list text-danger"></i>
+                        </a>
+<!--                         <a href="#">
+                            <i class="fa fa-fw fa-1x py-1 fa-list text-info"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fa fa-fw fa-1x py-1 fa-folder-open text-success"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fa fa-fw fa-1x py-1 fa-circle "></i>
+                        </a> -->
+                    </th>
+                        {{pass}}
+                    {{pass}}
+                </tbody>
+            </table>
+        </div>
+    
+    <div class="row">
+    <div class="col-md-6">
+<!--         <h5 class="text-left my-2">Pagina {{=pagina}}/{{=paginas}}</h5> -->
+    </div>
+    <div class="col-md-6" id="noprint">
+            {{if True:}}
+                <ul class="pagination m-2  justify-content-end">
+                    {{ if pagina != 1: }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ =URL(args=[empresa_cliente.id,1])}}">
+                            <i class="fa fa-angle-double-left"></i>
+                        </a>
+                    </li>
+                      {{ pass }}
+                       {{ if (paginas-pagina) > -3 and (pagina > 3)  : }}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ =URL(args=[empresa_cliente.id,pagina-3])}}">{{=pagina-3}}</a>
+                    </li>
+                       {{ pass }}
+                       {{ if (paginas-pagina) > -2 and (pagina > 2) : }}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ =URL(args=[empresa_cliente.id,pagina-2])}}">{{=pagina-2}}</a>
+                    </li>
+                       {{ pass }}
+                       {{ if (paginas-pagina) > -1 and (pagina != 1) : }}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ =URL(args=pagina[empresa_cliente.id,-1])}}">{{=pagina-1}}</a>
+                    </li>
+                       {{ pass }}
+                    {{ if (paginas) > 1: }}
+                    <li class="page-item active">
+                        <a class="page-link" href="#">{{=pagina}}</a>
+                    </li>
+                       {{ pass }}
+                    {{ if (paginas-pagina) > 0: }}
+                    <li class="page-item ">
+                        <a class="page-link" href="{{ =URL(args=pagina[empresa_cliente.id,+1])}}">{{=pagina+1}}</a>
+                    </li>
+                       {{ pass }}
+                    {{ if (paginas-pagina) > 1: }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ =URL(args=pagina[empresa_cliente.id,+2])}}">{{=pagina+2}}</a>
+                    </li>
+                        {{ pass }}
+                    {{ if (paginas-pagina) > 2: }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ =URL(args=pagina[empresa_cliente.id,+3])}}">{{=pagina+3}}</a>
+                    </li>
+                      {{ pass }}
+                    {{ if pagina != paginas: }}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ =URL(args=paginas[empresa_cliente.id,paginas])}}">
+                            <i class="fa fa-angle-double-right"></i>
+                        </a>
+                    </li>
+                      {{ pass }}
+                  </ul>
+            {{pass}}
+    </div>
+</div>
+    </div>

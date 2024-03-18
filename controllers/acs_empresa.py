@@ -4,11 +4,13 @@ def index():
     usuario = db.usuario_empresa(db.usuario_empresa.usuario==auth.user.id)
     if not usuario:
         redirect(URL('acs_empresa','cadastrar'))
-    if "xysfghj" in usuario.tipo:
-        redirect(URL('acs_analista','index'))
+    if "Analista" in usuario.tipo:
+        redirect(URL('acs_controle_acesso','analista_empresa'))
     if usuario.ativo==False:
         redirect(URL('default','index'))
     empresa = db.empresa(usuario.empresa)
+    if not empresa: 
+        redirect(URL('acs_cliente','index'))
     liberado = False
     if len(request.args) == 1:
         liberado = True

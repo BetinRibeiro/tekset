@@ -24,7 +24,7 @@ if request.global_settings.web2py_version < "2.15.5":
 # -------------------------------------------------------------------------
 # once in production, remove reload=True to gain full speed
 # -------------------------------------------------------------------------
-configuration = AppConfig(reload=True)
+configuration = AppConfig()
 
 if not request.env.web2py_runtime_gae:
     # ---------------------------------------------------------------------
@@ -132,7 +132,7 @@ if configuration.get('scheduler.enabled'):
     from gluon.scheduler import Scheduler
     scheduler = Scheduler(db, heartbeat=configuration.get('scheduler.heartbeat'))
 
-
+auth.settings.remember_me_form = False
 db.auth_user.id.writable=False
 db.auth_user.id.readable=False
 
@@ -174,7 +174,8 @@ db.empresa_cliente.id.readable=False
 db.define_table('usuario_empresa',
                 Field('usuario','reference auth_user', writable=False, readable=False, label='Usuario'),
                 Field('empresa','reference empresa', writable=False, readable=False, label='Empresa'),
-                Field('empresa_cliente','reference empresa_cliente', writable=False, readable=False, label='Empresa'),
+                Field('empresa_cliente','reference empresa_cliente', writable=False, readable=False, label='Empresa Cliente'),
+                Field('nome', 'string', label='Nome', writable=False, readable=False),
                 Field('tipo', 'string', label='Tipo',default='Administrador'),
                 Field('ativo', 'boolean', writable=False, readable=False, default=True))
 

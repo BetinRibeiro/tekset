@@ -3,7 +3,6 @@
 db.define_table('registro_atividade',
                 Field('empresa','reference empresa', writable=False, label='Empresa'),
                 Field('sistema','reference sistema', writable=True, label='Sistema'),
-                Field('circunspecto','reference auth_user', writable=True, label='Circunspecto'),
                 Field('tipo', 'string', label='Tipo', writable=True),
                 Field('referencia', 'string', label='Referência', writable=False),
                 Field('data_inicial', 'date', label='Data', default=request.now),
@@ -50,6 +49,7 @@ db.define_table('registro_atividade',
 #atributo REGISTRO_DESVIO_QUALIDADE
                 Field('ciente_desvio', 'string', label='Ciente do Desvio'),
 #atributo REGISTRO_DESVIO_QUALIDADE
+                Field('circunspecto','reference auth_user', writable=True, label='Responsável'),
                 Field('responsavel_acao', 'string', label='Resp. Ação'),
 #atributo VERSAO_SISTEMA
                 Field('versao_inicial', 'string', label='Versão Inicial'),
@@ -73,6 +73,16 @@ db.define_table('registro_atividade',
                 
                 Field('observacao', 'text', label='Observação', writable=False, readable=False),
                 Field('data_finalizacao', 'date', writable=False, readable=False, label='Data Finalização'),
+                
+                Field('alteracao_componente_hardware', 'boolean', writable=False, readable=False,label="Alteração de Comp. Hardware?", default=False),
+                Field('componente_alterado', 'text', label='Comp. Hardwares Alterados:', writable=False, readable=False),
+                Field('alteracao_patches', 'boolean', writable=False, readable=False,label="Instalação de Patches de atualização ou correção?", default=False),
+                Field('parches_atualizacao', 'text', label='Patches de atualização ou correção:', writable=False, readable=False),
+                
+                Field('quant_usuarios_anterior', 'integer', writable=False, readable=False, default=0),
+                Field('quant_usuarios_atual', 'integer', writable=False, readable=False, default=0),
+                
+                
                 Field('finalizado', 'boolean', writable=True, readable=True, default=False),
                 Field('excluido', 'boolean', writable=True, readable=True, default=False),
                 auth.signature,
@@ -94,7 +104,6 @@ db.registro_atividade.data_finalizacao.requires = IS_DATE(format=('%d-%m-%Y'),
 db.define_table('gestao_de_risco',
                 Field('empresa','reference empresa', writable=False, readable=False, label='empresa'),
                 Field('registro_atividade','reference registro_atividade', writable=False, readable=True, label='CAPA'),
-                Field('circunspecto','reference auth_user', writable=True, label='Circunspecto'),
                 Field('cenario_risco', 'string', label='Cenario Risco',requires = IS_UPPER()),
                 Field('efeito_risco', 'string', label='Efeito Risco',requires = IS_UPPER()),
                 Field('severidade', 'string', label='Severidade'),
@@ -103,8 +112,9 @@ db.define_table('gestao_de_risco',
                 Field('detectibilidade', 'string', label='Detectibilidade'),
                 Field('prioridade', 'string', writable=False, readable=False, label='Prioridade'),
                 Field('medidas', 'string', label='Medidas'),
-                Field('responsavel_acao', 'string', label='Responsavel pela Ação'),
-                Field('email_responsavel_acao', 'string', label='Email Responsavél'),
+                Field('responsavel_acao', 'string', writable=False, readable=False, label='Responsavel pela Ação'),
+                Field('circunspecto','reference auth_user', writable=True, label='Responsável'),
+                Field('email_responsavel_acao', 'string', writable=False, readable=False, label='Email Responsavél'),
                 Field('data_prevista', 'date', label='Data Prevista', default=request.now),
 
                 Field('observacao', 'text', label='Observação', writable=True, readable=False),

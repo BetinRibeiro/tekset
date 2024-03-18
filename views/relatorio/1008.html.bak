@@ -1,0 +1,356 @@
+{{extend 'layout.html'}}
+{{ra=registro_atividade}}
+<div class="py-5" style="">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-bordered table-sm">
+              <thead>
+                <tr>
+                  <th colspan="4" class="text-center"> REVISÃO PERIÓDICA</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                </tr>
+                <tr>
+                  <th>Cód. Referência </th>
+                  <td colspan="2">{{=registro_atividade.referencia}}</td>
+                </tr>
+                <tr>
+                  <th>Identificação do Sistema</th>
+                  <td colspan="2">{{=registro_atividade.sistema.nome}}</td>
+                </tr>
+                <tr>
+                  <td colspan="4">
+                      
+                      
+                      
+                      
+                      {{lista=retorno_registro(registro_atividade.sistema,'1002')}}
+                    
+                      {{for registro_atividade in lista:}}
+                      <div class="table-responsive">
+            <table class="table table-sm table-striped table-borderless table-bordered">
+              <thead>
+                <tr>
+                  <th colspan="3" class="text-center">REGISTRO DE MUDANÇAS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Cód. Referência</b></td>
+                  <td><b>Identificação do Sistema</b></td>
+                  <td><b>Registro de mudança</b></td>
+                </tr>
+                <tr>
+                  <td>{{=registro_atividade.referencia}}</td>
+                  <td>{{=registro_atividade.sistema.nome}}</td>
+                  <td>{{=registro_atividade.registro_mudanca}}</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><b>Motivo da mudança:</b></td>
+                </tr>
+                <tr>
+                  <td colspan="3">{{=registro_atividade.descricao}}</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><b>Procedimento de Implantação</b></td>
+                </tr>
+                <tr>
+                  <td colspan="3">{{=registro_atividade.procedimento_implantacao}}</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><b>Análise Critica em BPF</b></td>
+                </tr>
+                <tr>
+                  <td colspan="3">{{=registro_atividade.analise_critica}}</td>
+                </tr>
+                <tr>
+                  <td><b>Data de abertura</b></td>
+                    <td colspan="2"><b>Eficácia:</b></td>
+                </tr>
+                <tr>
+                  <td>{{=registro_atividade.data_final.strftime('%d/%m/%Y')}}</td>
+                  <td colspan="2">{{=registro_atividade.eficaz}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+                      {{pass}}
+                    
+                      </td>
+                </tr>
+                <tr>
+                  <th colspan="3">CHECKLIST DE VERIFICAÇÃO</th>
+                </tr>
+                <tr>
+                  <td colspan="3">Ocorreu alteração de Hardware?
+                      <br>
+                      {{if ra.alteracao_componente_hardware!=None:}}
+                      {{if ra.alteracao_componente_hardware==True:}}
+                          SIM
+                      {{else:}}
+                          NÃO
+                      {{pass}}
+                      {{else:}}
+                      Não Informado
+                      {{pass}}
+                      <br>
+                      {{if ra.componente_alterado:}}{{=ra.componente_alterado}}{{else:}}Não Informado{{pass}}
+                      
+                      
+                      
+                </tr>
+                <tr>
+                  <td colspan="3">Ocorreu alteração de Software?
+                      <br>
+                      {{if ra.alteracao_patches:}}
+                      
+                      {{if ra.alteracao_patches==True:}}
+                          SIM
+                      {{else:}}
+                          NÃO
+                      {{pass}}
+                      
+                      {{else:}}
+                      
+                      Não Informado
+                      {{pass}}
+                      <br>
+                      {{if ra.parches_atualizacao:}}{{=ra.parches_atualizacao}}{{else:}}Não Informado{{pass}}
+                    </td>
+                </tr>
+<!--                 <tr>
+                  <th colspan="3">LISTA DE PROCEDIMENTOS</th>
+                </tr> -->
+                <tr>
+                  <td colspan="3">
+                      {{lista=retorno_registro(registro_atividade.sistema,'1005')}}
+                      
+                      {{for registro_atividade in lista:}}
+                      
+                       <div class="table-responsive">
+            <table class="table table-bordered table-borderless table-sm table-striped">
+              <thead>
+                <tr>
+                  <th colspan="3" class="text-center"><b>REVISÃO DE PROCEDIMENTOS</b></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Cód. Referência</b></td>
+                  <td><b>Identificação do Sistema</b></td>
+                  <td><b>Procedimento</b></td>
+                </tr>
+                <tr>
+                  <td>{{=registro_atividade.referencia}}</td>
+                  <td>{{=registro_atividade.sistema.nome}}</td>
+                  <td>{{=registro_atividade.descricao}}</td>
+                </tr>
+                <tr>
+                  <td><b>Data de válidade</b></td>
+                  <td colspan="2"><b>Identificação do Procedimento</b></td>
+                </tr>
+                <tr>
+                  <td>{{=registro_atividade.data_final.strftime('%d/%m/%Y')}}</td>
+                  <td colspan="2">{{=registro_atividade.identificacao_pop}}</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><b>Motivo da Revisão:</b></td>
+                </tr>
+                <tr>
+                  <td colspan="3">{{=registro_atividade.motivo}}</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><b>Análise Critica em BPF:</b></td>
+                </tr>
+                <tr>
+                  <td colspan="3">{{=registro_atividade.analise_critica_bpf}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+                      
+                      {{pass}}
+                      
+                      
+                      
+                      
+                  </td>
+                </tr>
+                <tr>
+                  <th colspan="2">QUANTIDADE DE USUÁRIOS ANTERIOR</th>
+                  <th colspan="2">{{if ra.quant_usuarios_anterior:}}{{=ra.quant_usuarios_anterior}}{{else:}}Não Informado{{pass}}</th>
+                </tr>
+                <tr>
+                </tr>
+                <tr>
+                  <th colspan="2">QUANTIDADE DE USUÁRIOS ATUAL</th>
+                  <th colspan="2">{{if ra.quant_usuarios_atual:}}{{=ra.quant_usuarios_atual}}{{else:}}Não Informado{{pass}}</th>
+                </tr>
+<!--                 <tr>
+                  <th colspan="4">QUANTIDADE DE REGISTROS DE NÃO CONFORMIDADE</th>
+              </tr> -->
+                  <tr>
+                  <th colspan="4">
+                      {{lista=retorno_registro(registro_atividade.sistema,'1006')}}
+                      
+                      {{for registro_atividade in lista:}}
+                      <div class="table-responsive" >
+            <table class="table table-bordered table-borderless table-sm table-striped">
+              <thead>
+                <tr>
+                    <th colspan="3" class="text-center"><b>REGISTRO DE DESVIOS DE QUALIDADE (RDQ)</b></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Reg:</b> {{=registro_atividade.referencia}}</td>
+                  <td colspan="2"><b>Local do Desvio:</b> {{=registro_atividade.local_backup}}</td>
+                </tr>
+                <tr>
+                  <td><b>Area do Desvio:</b> {{=registro_atividade.area_desvio}}</td>
+                  <td><b>Tipo de Desvio:</b> {{=registro_atividade.tipo_desvio}}</td>
+                  <td><b>Data do Desvio:</b> {{=registro_atividade.data_final.strftime('%d/%m/%Y')}}</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><b>Descrição:</b></td>
+                </tr>
+                <tr>
+                  <td colspan="3">{{=registro_atividade.descricao}}</td>
+                </tr>
+                <tr>
+                  <td><b>Avaliação da Criticidade:</b> {{=registro_atividade.avaliacao_criticidade}}</td>
+                  <td colspan="2"><b>Ciencia do Desvio:</b> {{=registro_atividade.ciente_desvio}}</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><b>Responsável Pela Ação:</b> {{=registro_atividade.circunspecto.first_name}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+                      {{pass}}
+                      
+                </tr>
+<!--                 <tr>
+                  <th colspan="4">QUANTIDADE DE CAPAs:</th>
+              </tr> -->
+                  <tr>
+                  <th colspan="4">
+                      {{lista=retorno_registro(registro_atividade.sistema,'1001')}}
+                      
+                      {{for registro_atividade in lista:}}
+                      <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-bordered table-sm">
+              <thead>
+                <tr>
+                  <th colspan="4" class="text-center">{{=registro_atividade.tipo[6:]}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>Cód. Referência </th>
+                  <th>Identificação do Sistema</th>
+                  <th colspan="2">Controle de Mudança</th>
+                </tr>
+                <tr>
+                  <td>{{=registro_atividade.referencia}}</td>
+                  <td>{{=registro_atividade.sistema.nome}}</td>
+                  <td colspan="2">{{=registro_atividade.identificacao_desvio_cm}}</td>
+                </tr>
+                <tr>
+                  <th colspan="4">Descrição da causa raiz:</th>
+                </tr>
+                <tr>
+                  <td colspan="5">{{=registro_atividade.descricao}}</td>
+                </tr>
+                <tr>
+                  <th>Avaliação da eficácia:</th>
+                  <th>Data de avaliação da eficácia</th>
+                  <th colspan="2">Responsável pela avaliação</th>
+                </tr>
+                <tr>
+                  <td>{{=registro_atividade.eficaz}}</td>
+                  <td>{{=registro_atividade.data_final.strftime('%d/%m/%Y')}}</td>
+                  <td colspan="2">{{=registro_atividade.circunspecto.first_name}}</td>
+                </tr>
+                <tr>
+                  <th colspan="4">E-mail do avaliador:</th>
+                </tr>
+                <tr>
+                  <td colspan="5">{{=registro_atividade.circunspecto.first_name}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+                      {{lista = grs(registro_atividade.id)}}
+                      
+                      <div class="table-responsive">
+            <table class="table  table-bordered table-sm">
+              <thead>
+                <tr>
+                  <th colspan="7" class="text-center">GESTÃO DE RISCO</th>
+                </tr>
+              </thead>
+              </table>
+            </div>
+                      {{for gr in lista:}}
+            
+          <div class="table-responsive py-3">
+            <table class="table  table-bordered table-sm">
+               
+
+              <tbody>
+                <tr>
+                  <th>Cenário do risco</th>
+                  <th>Efeito do risco</th>
+                  <th>Severidade</th>
+                  <th>Probabilid</th>
+                  <th>Classe</th>
+                  <th>Detecção</th>
+                  <th>Prioridade</th>
+                </tr>
+                <tr>
+                  <td>{{=gr.cenario_risco}}</td>
+                  <td>{{=gr.efeito_risco}}</td>
+                  <td>{{=gr.severidade}}</td>
+                  <td>{{=gr.probabilidade}}</td>
+                  <td>{{=gr.classe_risco}}</td>
+                  <td>{{=gr.detectibilidade}}</td>
+                  <td>{{=gr.prioridade}}</td>
+                </tr>
+                <tr>
+                  <td colspan="7"><b>Medidas:</b> {{=gr.medidas}}</td>
+                </tr>
+                <tr>
+                  <td colspan="7"><b>Responsavel:</b> {{=gr.circunspecto.first_name}}</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><b>Email do Responsavel:</b> {{=gr.circunspecto.email}}</td>
+                  <td></td>
+                  <td colspan="4"><b>Data Prevista:</b> {{=gr.data_prevista.strftime('%d/%m/%Y')}}</td>
+                </tr>
+               
+              </tbody>
+            </table>
+          </div>
+                
+                {{pass}}
+                      
+                      {{pass}}
+                      
+                  </th>
+                </tr>
+              </tbody>
+              <tbody>
+                <tr></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

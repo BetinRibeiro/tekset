@@ -134,9 +134,9 @@
                     {{a=0}}
                         {{for row in lista_perguntas:}}
                     {{if 'N' in sistema.get(lista_referencia[a]):}}
-                    <tr class="text-danger">
+                    <tr>
                     {{else:}}
-                    <tr class="text-success">
+                    <tr>
                     {{pass}}
                     <td>{{=row}}</td>
                     <td>{{=sistema.get(lista_referencia[a])}}</td>

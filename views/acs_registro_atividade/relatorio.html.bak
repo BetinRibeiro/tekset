@@ -1,10 +1,2 @@
+{{=layout}}
 {{extend layout}}
- {{block header}}
-{{if false}}
-<h2>
-    
-{{=enviar_email(registro_atividade.email_responsalvel ,registro_atividade.tipo[13:] ,registro_atividade.descricao)}}
-    
-</h2>
-{{pass}}
-{{end}}

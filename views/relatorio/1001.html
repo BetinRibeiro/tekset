@@ -34,14 +34,14 @@
                 </tr>
                 <tr>
                   <td>{{=registro_atividade.eficaz}}</td>
-                  <td>{{=registro_atividade.data_final}}</td>
-                  <td colspan="2">{{=registro_atividade.responsavel_avaliacao}}</td>
+                  <td>{{=registro_atividade.data_final.strftime('%d/%m/%Y')}}</td>
+                  <td colspan="2">{{=registro_atividade.circunspecto.first_name}}</td>
                 </tr>
                 <tr>
                   <th colspan="4">E-mail do avaliador:</th>
                 </tr>
                 <tr>
-                  <td colspan="5">{{=registro_atividade.email_responsalvel}}</td>
+                  <td colspan="5">{{=registro_atividade.circunspecto.email}}</td>
                 </tr>
               </tbody>
             </table>
@@ -92,11 +92,10 @@
                   <td colspan="7"><b>Medidas:</b> {{=gr.medidas}}</td>
                 </tr>
                 <tr>
-                  <td colspan="7"><b>Responsavel:</b> {{=gr.responsavel_acao}}</td>
+                  <td colspan="7"><b>Responsavel:</b> {{=gr.circunspecto.first_name}}</td>
                 </tr>
                 <tr>
-                  <td colspan="2"><b>Email do Responsavel:</b> {{=gr.email_responsavel_acao}}</td>
-                  <td></td>
+                  <td colspan="2"><b>Email do Responsavel:</b> {{=gr.circunspecto.email}}</td>
                   <td colspan="5"><b>Data Prevista:</b> {{=gr.data_prevista.strftime('%d/%m/%Y')}}</td>
                 </tr>
                

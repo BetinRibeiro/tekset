@@ -1,20 +1,36 @@
 # -*- coding: utf-8 -*-
 import datetime
 
+#otimizada
 def form_num(number):
     return "{:02d}".format(number)
 
+#função enterior a otimização
+# def gerar_referencia():
+#     hoje = datetime.date.today()
+#     total = db(db.registro_atividade.id>0).count()
+#     if total==0:
+#         total=1000000
+#     else:
+#         ultimo = db(db.registro_atividade.id>0).select().last()
+#         total = ultimo.id+1000000
+#     codigo = f'{hoje.year}{form_num(hoje.month)}{form_num(hoje.day)}{str(total).zfill(7)}'
+#     return codigo
+
+#otimizada
 def gerar_referencia():
     hoje = datetime.date.today()
-    total = db(db.registro_atividade.id>0).count()
-    if total==0:
-        total=1000000
-    else:
-        ultimo = db(db.registro_atividade.id>0).select().last()
-        total = ultimo.id+1000000
-    
-    codigo = f'{hoje.year}{form_num(hoje.month)}{form_num(hoje.day)}{str(total).zfill(7)}'
+
+    # Obter o último ID ou atribuir o valor padrão caso não haja registros
+    ultimo_id = db(db.registro_atividade.id>0).select(db.registro_atividade.id.max()).first()[db.registro_atividade.id.max()] or 0
+
+    # Calcular o total somando o último ID com o valor fixo
+    total = ultimo_id + 1000000
+
+    # Concatenar os elementos da referência
+    codigo = f'{hoje.year}{hoje.month:02d}{hoje.day:02d}{str(total).zfill(7)}'
     return codigo
+
 
 
 def atualiza_nomes_usuarios(id_empresa):
@@ -92,19 +108,34 @@ def gerar_revisao_periodica(id_sistema):
         return False
     return True
 
+#antes da otimização
+# def total_atividade(id_empresa, tipo):
+#     rows = db(db.gestao_de_risco.empresa==None).select()
+#     for row in rows:
+#         registro_atividade = db.registro_atividade(row.registro_atividade)
+#         row.empresa=registro_atividade.empresa
+#         row.update_record()
+#     if 'total' in tipo:
+#         total = db((db.registro_atividade.empresa==id_empresa)&(db.registro_atividade.excluido==False)).count()
+#     elif 'concluido' in tipo:
+#         total = db((db.registro_atividade.empresa==id_empresa)&(db.registro_atividade.finalizado==True)&(db.registro_atividade.excluido==False)).count()
+#     elif 'pendente' in tipo:
+#         total = db((db.registro_atividade.empresa==id_empresa)&(db.registro_atividade.finalizado==False)&(db.registro_atividade.excluido==False)).count()
+#     elif 'gr' in tipo:
+#         total = db((db.gestao_de_risco.empresa==id_empresa)&(db.gestao_de_risco.excluido==False)).count()
+#     return total
 
+#otimizado
 def total_atividade(id_empresa, tipo):
-    rows = db(db.gestao_de_risco.empresa==None).select()
-    for row in rows:
-        registro_atividade = db.registro_atividade(row.registro_atividade)
-        row.empresa=registro_atividade.empresa
-        row.update_record()
     if 'total' in tipo:
-        total = db((db.registro_atividade.empresa==id_empresa)&(db.registro_atividade.excluido==False)).count()
+        total = db((db.registro_atividade.empresa == id_empresa) & (db.registro_atividade.excluido == False)).select(db.registro_atividade.id.count()).first()[db.registro_atividade.id.count()]
     elif 'concluido' in tipo:
-        total = db((db.registro_atividade.empresa==id_empresa)&(db.registro_atividade.finalizado==True)&(db.registro_atividade.excluido==False)).count()
+        total = db((db.registro_atividade.empresa == id_empresa) & (db.registro_atividade.finalizado == True) & (db.registro_atividade.excluido == False)).select(db.registro_atividade.id.count()).first()[db.registro_atividade.id.count()]
     elif 'pendente' in tipo:
-        total = db((db.registro_atividade.empresa==id_empresa)&(db.registro_atividade.finalizado==False)&(db.registro_atividade.excluido==False)).count()
+        total = db((db.registro_atividade.empresa == id_empresa) & (db.registro_atividade.finalizado == False) & (db.registro_atividade.excluido == False)).select(db.registro_atividade.id.count()).first()[db.registro_atividade.id.count()]
     elif 'gr' in tipo:
-        total = db((db.gestao_de_risco.empresa==id_empresa)&(db.gestao_de_risco.excluido==False)).count()
+        total = db((db.gestao_de_risco.empresa == id_empresa) & (db.gestao_de_risco.excluido == False)).select(db.gestao_de_risco.id.count()).first()[db.gestao_de_risco.id.count()]
+    else:
+        total = 0
+
     return total

@@ -98,6 +98,11 @@
                             <i class="fa fa-fw fa-1x py-1 fa-pencil-square text-warning"></i>
                         </a>
                         {{pass}}
+        {{if not 'Anali' in usuario.tipo:}}
+                        <a href="{{ =URL('acs_usuario_cliente','index',args=row.id)}}">
+                            <i class="fa fa-fw fa-1x py-1 fa-users text-info"></i>
+                        </a>
+                        {{pass}}
                         <a href="{{ =URL('acs_sistema','acessar_cliente',args=row.id)}}">
                             <i class="fa fa-fw fa-1x py-1 fa-folder-open text-success"></i>
                         </a>

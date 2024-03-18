@@ -10,12 +10,13 @@ lista_registro_atividade = [
 	'1007 - VS   - VERSÃO DO SISTEMA',
 	'1008 - RVP  - REVISÃO PERIODICA']
 
-
 def retorna_atividade(tipo):
-    tipo=str(tipo)
-    retorno="0000"
+    tipo = str(tipo)
+    
+    # Procurar o tipo na lista e retornar a atividade correspondente
     for row in lista_registro_atividade:
         if tipo in row:
-            retorno=row
-            break
-    return retorno
+            return row
+    
+    # Caso o tipo não seja encontrado, retornar None
+    return None

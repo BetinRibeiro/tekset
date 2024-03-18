@@ -66,8 +66,8 @@ def validador_capa():
     
     db.registro_atividade.responsavel_avaliacao.readable=True
     db.registro_atividade.responsavel_avaliacao.writable=True
-    db.registro_atividade.email_responsalvel.readable=True
-    db.registro_atividade.email_responsalvel.writable=True
+    db.registro_atividade.email_responsalvel.readable=False
+    db.registro_atividade.email_responsalvel.writable=False
     db.registro_atividade.email_responsalvel.label='Email Resp.'
     db.registro_atividade.email_responsalvel.requires = IS_EMAIL(error_message='Email Invalido!')
     db.registro_atividade.observacao.readable=True
@@ -491,6 +491,23 @@ def validador_vs():
     
     
 def validador_rvp():
+    
+    db.registro_atividade.quant_usuarios_anterior.readable=True
+    db.registro_atividade.quant_usuarios_anterior.writable=True
+    db.registro_atividade.quant_usuarios_atual.readable=True
+    db.registro_atividade.quant_usuarios_atual.writable=True
+    
+    
+    
+    db.registro_atividade.parches_atualizacao.readable=True
+    db.registro_atividade.parches_atualizacao.writable=True
+    db.registro_atividade.alteracao_patches.readable=True
+    db.registro_atividade.alteracao_patches.writable=True
+    
+    db.registro_atividade.componente_alterado.readable=True
+    db.registro_atividade.componente_alterado.writable=True
+    db.registro_atividade.alteracao_componente_hardware.readable=True
+    db.registro_atividade.alteracao_componente_hardware.writable=True
     db.registro_atividade.empresa.readable=False
     db.registro_atividade.sistema.writable=True
     db.registro_atividade.tipo.readable=False
@@ -556,7 +573,7 @@ def validador_rvp():
     
 def bloqueia_altreracoes():
     
-    db.registro_atividade.excluir.writable=False
+    db.registro_atividade.excluido.writable=False
     db.registro_atividade.sistema.writable=False
     db.registro_atividade.circunspecto.writable=False
     db.registro_atividade.empresa.writable=False

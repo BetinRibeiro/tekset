@@ -22,14 +22,14 @@
                 <tr>
                   <td>{{=registro_atividade.referencia}}</td>
                   <td>{{=registro_atividade.sistema.nome}}</td>
-                  <td>{{=registro_atividade.procedimento_implantacao}}</td>
+                  <td>{{=registro_atividade.descricao}}</td>
                 </tr>
                 <tr>
                   <td><b>Data de válidade</b></td>
                   <td colspan="2"><b>Identificação do Procedimento</b></td>
                 </tr>
                 <tr>
-                  <td>{{=registro_atividade.data_final}}</td>
+                  <td>{{=registro_atividade.data_final.strftime('%d/%m/%Y')}}</td>
                   <td colspan="2">{{=registro_atividade.identificacao_pop}}</td>
                 </tr>
                 <tr>
@@ -42,7 +42,7 @@
                   <td colspan="3"><b>Análise Critica em BPF:</b></td>
                 </tr>
                 <tr>
-                  <td colspan="3">{{=registro_atividade.analise_critica}}</td>
+                  <td colspan="3">{{=registro_atividade.analise_critica_bpf}}</td>
                 </tr>
               </tbody>
             </table>

@@ -37,7 +37,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-light bg-dark static-top">
             <div class="container">
-                <a class="navbar-brand text-light" href="{{=URL('acs_empresa','index',args='a')}}">{{=request.application.title().replace("_"," ")}}</a>
+                <a class="navbar-brand text-light" href="{{=URL('acs_empresa','index',args='a')}}">{{=request.application.title().replace("_"," ")}} Revisa</a>
                 <a class="btn btn-primary" href="{{=URL('acs_empresa','index')}}">Acessar</a>
             </div>
         </nav>

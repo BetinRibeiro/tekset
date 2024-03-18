@@ -132,7 +132,7 @@
                 </thead>
                 <tbody>
                     {{a=0}}
-                        {{for row in lista_perguntas:}}
+                        {{for row in lista_perguntas():}}
                     {{if 'N' in sistema.get(lista_referencia[a]):}}
                     <tr>
                     {{else:}}

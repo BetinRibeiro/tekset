@@ -12,9 +12,9 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>Cód. Referência </td>
-                  <td>Identificação do Sistema</td>
-                  <td colspan="2">Controle de Mudança</td>
+                  <th>Cód. Referência </th>
+                  <th>Identificação do Sistema</th>
+                  <th colspan="2">Controle de Mudança</th>
                 </tr>
                 <tr>
                   <td>{{=registro_atividade.referencia}}</td>
@@ -22,26 +22,26 @@
                   <td colspan="2">{{=registro_atividade.identificacao_desvio_cm}}</td>
                 </tr>
                 <tr>
-                  <td colspan="4">Descrição da causa raiz:</td>
+                  <th colspan="4">Descrição da causa raiz:</th>
                 </tr>
                 <tr>
                   <td colspan="5">{{=registro_atividade.descricao}}</td>
                 </tr>
                 <tr>
-                  <td>Avaliação da eficácia:</td>
-                  <td>Data de avaliação da eficácia</td>
-                  <td colspan="2">Responsável pela avaliação</td>
+                  <th>Avaliação da eficácia:</th>
+                  <th>Data de avaliação da eficácia</th>
+                  <th colspan="2">Responsável pela avaliação</th>
                 </tr>
                 <tr>
                   <td>{{=registro_atividade.eficaz}}</td>
                   <td>{{=registro_atividade.data_final}}</td>
-                  <td colspan="2">{{=registro_atividade.responsavel_avaliacao}}</td>
+                  <td colspan="2">{{=registro_atividade.circunspecto.first_name}}</td>
                 </tr>
                 <tr>
-                  <td colspan="4">E-mail do avaliador:</td>
+                  <th colspan="4">E-mail do avaliador:</th>
                 </tr>
                 <tr>
-                  <td colspan="5">{{=registro_atividade.email_responsalvel}}</td>
+                  <td colspan="5">{{=registro_atividade.circunspecto.email}}</td>
                 </tr>
               </tbody>
             </table>
@@ -92,11 +92,10 @@
                   <td colspan="7"><b>Medidas:</b> {{=gr.medidas}}</td>
                 </tr>
                 <tr>
-                  <td colspan="7"><b>Responsavel:</b> {{=gr.responsavel_acao}}</td>
+                  <td colspan="7"><b>Responsavel:</b> {{=gr.circunspecto.first_name}}</td>
                 </tr>
                 <tr>
-                  <td colspan="2"><b>Email do Responsavel:</b> {{=gr.email_responsavel_acao}}</td>
-                  <td></td>
+                  <td colspan="2"><b>Email do Responsavel:</b> {{=gr.circunspecto.email}}</td>
                   <td colspan="5"><b>Data Prevista:</b> {{=gr.data_prevista.strftime('%d/%m/%Y')}}</td>
                 </tr>
                

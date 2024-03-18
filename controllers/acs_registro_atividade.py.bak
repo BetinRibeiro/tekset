@@ -46,7 +46,7 @@ def cadastrar():
     db.registro_atividade.circunspecto.readable=True
     
     db.registro_atividade.circunspecto.requires = IS_IN_DB(db((db.usuario_empresa.empresa==usuario.empresa)&(db.usuario_empresa.ativo==True)), 'usuario_empresa.usuario', '%(nome)s')
-    db.registro_atividade.sistema.requires = IS_IN_DB(db((db.sistema.empresa==usuario.empresa)&(db.sistema.ativo==True)&(db.sistema.excluido==False)), 'sistema.id', '%(nome)s')
+    db.registro_atividade.sistema.requires = IS_IN_DB(db((db.sistema.empresa==usuario.empresa)&(db.sistema.ativo==True)&(db.sistema.excluido==False)), 'sistema.id', '%(nome_empresa)s - %(nome)s')
     atualiza_nomes_usuarios(usuario.empresa)
     db.registro_atividade.responsavel_avaliacao.requires = IS_IN_DB(db((db.usuario_empresa.empresa==usuario.empresa)&(db.usuario_empresa.ativo==True)), 'usuario_empresa.nome', '%(nome)s')
     db.registro_atividade.responsavel_acao.requires = IS_IN_DB(db((db.usuario_empresa.empresa==usuario.empresa)&(db.usuario_empresa.ativo==True)), 'usuario_empresa.nome', '%(nome)s')
@@ -148,7 +148,7 @@ def gestao_risco():
         redirect(URL(args[registro_atividade.id,paginas]))
     limites = (paginacao*(pagina-1),paginacao*(pagina))
     registros = db(db.gestao_de_risco.registro_atividade==registro_atividade.id).select(limitby=limites, orderby=~db.gestao_de_risco.id)
-    return dict(rows=registros, pagina=pagina, paginas=paginas, total=total, empresa=empresa, registro_atividade=registro_atividade)
+    return dict(rows=registros, pagina=pagina, paginas=paginas, total=total, empresa=empresa, registro_atividade=registro_atividade,usuario=usuario)
 
 
 @auth.requires_login()
@@ -196,7 +196,7 @@ def alterar_gr():
     if form.process().accepted:
         calcula_classe_risco_prioridade(form.vars.id)
         a=disparar_email_gr(form.vars.id)
-        redirect(URL('gestao_risco',args=[registro_atividade.id,a]))
+        redirect(URL('gestao_risco',args=[registro_atividade.id,1,a]))
     elif form.errors:
         response.flash="Formulario Não Aceito"
     return dict(form=form)
@@ -258,3 +258,30 @@ def modificar_status():
     #o retorno é um redirecionamento para a lista de gr passando como argumento o
     #registro de atividade CAPA como arumento ZERO
     return redirect(URL('gestao_risco',args=[gestao_de_risco.registro_atividade]))
+
+
+def especifica():
+    usuario = db.usuario_empresa(db.usuario_empresa.usuario==auth.user.id)
+    empresa =db.empresa(usuario.empresa)
+    paginacao = 35
+    if len(request.args) == 0:
+        pagina = 1
+    else:
+        try:
+            pagina = int(request.args[0])
+        except ValueError:
+            redirect(URL(args=[1]))
+    if pagina <= 0:
+        pagina = 1
+    total = db((db.registro_atividade.modified_by==usuario.id)).count()
+    paginas = total//paginacao
+    if total%paginacao:
+        paginas+=1
+    if total==0:
+        paginas=1
+    if pagina > paginas:
+        redirect(URL(args=[tipo,paginas]))
+    limites = (paginacao*(pagina-1), (paginacao*pagina))
+    registros = db((db.registro_atividade.modified_by==usuario.id)).select(
+      limitby=limites,orderby=db.registro_atividade.finalizado|db.registro_atividade.data_inicial|db.registro_atividade.id)
+    return dict(rows=registros, pagina=pagina, paginas=paginas, total=total, empresa=empresa)

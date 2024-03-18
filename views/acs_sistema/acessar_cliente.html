@@ -3,6 +3,7 @@
 <div class="bg-light rounded p-4">
     <div class="d-flex align-items-center justify-content-between mb-4 text-center">
         <h6 class="mb-0">{{=total}} Sistemas ({{=pagina}}/{{=paginas}} Páginas) {{=empresa_cliente.nome}}</h6>
+        
         <a class="btn btn-info btn-sm" href="{{=URL('cadastrar_com_cliente', args=empresa_cliente.id)}}">
             <i class="fa fa-fw fa-plus-square"></i>
             Cadastrar
@@ -101,9 +102,11 @@
                     <td>SIM</td>
                         {{pass}}
                     <th id="noprint" class="text-right">
+        {{if not 'Anali' in usuario.tipo:}}
                         <a href="{{=URL('alterar',args=row.id)}}">
                             <i class="fa fa-fw fa-1x py-1 fa-pencil-square text-warning"></i>
                         </a>
+                        {{pass}}
                         {{if not 'UP' in row.possibilidade_validacao:}}
                         <a href="{{=URL('analise',args=row.id)}}">
                             <i class="fa fa-fw fa-1x py-1 fa-list text-info"></i>
@@ -118,9 +121,9 @@
                         <a href="{{=URL('registros_atividade',args=row.id)}}">
                             <i class="fa fa-fw fa-1x py-1 fa-folder-open text-success"></i>
                         </a>
-<!--                         <a href="#">
-                            <i class="fa fa-fw fa-1x py-1 fa-circle "></i>
-                        </a> -->
+                        <a href="{{=URL('acessar_sistema',args=row.id)}}">
+                            <i class="fa fa-fw fa-1x py-1 fa-folder "></i>
+                        </a>
                     </th>
                     {{pass}}
                 </tbody>

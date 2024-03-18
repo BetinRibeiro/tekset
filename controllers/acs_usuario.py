@@ -38,22 +38,25 @@ def index():
 
 @auth.requires_login()
 def alterar():
-    try:
-        response.view = 'generic.html' # use a generic view
-        request.function='Alterar'
+    response.view = 'generic.html' # use a generic view
+    request.function='Alterar'
+    if len(request.args) == 1:
         usuario_empresa= db.usuario_empresa(request.args(0, cast=int))
-        usuario = db.usuario_empresa(db.usuario_empresa.usuario==auth.user.id)
+    else:
+        usuario_empresa = db.usuario_empresa(db.usuario_empresa.usuario==auth.user.id)
+
+    usuario = db.usuario_empresa(db.usuario_empresa.usuario==auth.user.id)
+    if auth.user.id>3:
         if not "Admin" in usuario.tipo:
             if not "Coor" in usuario.tipo:
                 response.flash = 'Você não tem autorização'
                 redirect(URL('index'))
-        form = SQLFORM(db.usuario_empresa, request.args(0, cast=int), deletable=False)
-        if form.process().accepted:
-            redirect(URL('alterar_user', args=usuario_empresa.usuario))
-        elif form.errors:
-            response.flash = 'Formulario não aceito'
-    except:
+    form = SQLFORM(db.usuario_empresa, usuario_empresa.id, deletable=False)
+    if form.process().accepted:
         redirect(URL('alterar_user', args=usuario_empresa.usuario))
+    elif form.errors:
+        response.flash = 'Formulario não aceito'
+    
     return dict(form=form)
 
 @auth.requires_login()
