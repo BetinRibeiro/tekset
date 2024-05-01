@@ -71,6 +71,9 @@ def alterar():
             if not "Coor" in usuario.tipo:
                 response.flash = 'Você não tem autorização'
                 redirect(URL('index'))
+        
+        
+        db.usuario_empresa.tipo.requires = IS_IN_SET(['Coordenador Cliente', 'Analista Cliente'])
         form = SQLFORM(db.usuario_empresa, request.args(0, cast=int), deletable=False)
         if form.process().accepted:
             redirect(URL('alterar_user', args=usuario_empresa.usuario))

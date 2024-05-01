@@ -71,6 +71,14 @@ def alterar():
             if not "Coor" in usuario.tipo:
                 response.flash = 'Você não tem autorização'
                 redirect(URL('index'))
+        
+        usuario = db.usuario_empresa(db.usuario_empresa.usuario==auth.user.id)
+        if 'Coordenador' in usuario.tipo:
+            db.usuario_empresa.tipo.requires = IS_IN_SET(['Analista Empresa', 'Analista Cliente'])
+            db.usuario_empresa.tipo.deafult='Analista Empresa'
+        else:
+            db.usuario_empresa.tipo.requires = IS_IN_SET(['Analista Cliente'])
+            db.usuario_empresa.tipo.deafult='Analista Cliente'
         form = SQLFORM(db.usuario_empresa, request.args(0, cast=int), deletable=False)
         if form.process().accepted:
             redirect(URL('alterar_user', args=usuario_empresa.usuario))
@@ -135,8 +143,6 @@ def registros_atividade():
     usuario = db.usuario_empresa(db.usuario_empresa.usuario==auth.user.id)
     
     empresa = db.empresa(usuario.empresa)
-    if colaborador.empresa!=empresa.id:
-        redirect(URL('index'))
         
     paginacao = 35
     if len(request.args) == 1:

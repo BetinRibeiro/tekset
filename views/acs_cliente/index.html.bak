@@ -98,7 +98,7 @@
                             <i class="fa fa-fw fa-1x py-1 fa-pencil-square text-warning"></i>
                         </a>
                         {{pass}}
-        {{if 'Anali' in usuario.tipo:}}
+        {{if not 'Anali' in usuario.tipo:}}
                         <a href="{{ =URL('acs_usuario_cliente','index',args=row.id)}}">
                             <i class="fa fa-fw fa-1x py-1 fa-users text-info"></i>
                         </a>

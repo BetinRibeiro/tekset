@@ -1,0 +1,105 @@
+# -*- coding: utf-8 -*-
+
+@auth.requires_login()
+def index():
+#     response.view = 'generic.html' # use a generic view
+    usuario = db.usuario_empresa(db.usuario_empresa.usuario==auth.user.id)
+    if not usuario.empresa:
+        empresa_cliente= db.empresa_cliente(usuario.empresa_cliente)
+        empresa = empresa_cliente.empresa
+        usuario.empresa=empresa.id
+        usuario.update_record()
+    empresa =db.empresa(usuario.empresa)
+    empresa_cliente =db.empresa_cliente(usuario.empresa_cliente)
+    if usuario.ativo==False:
+        redirect(URL('default','index'))
+    paginacao = 35
+    if len(request.args) == 0:
+        pagina = 1
+    else:
+        try:
+            pagina = int(request.args[0])
+        except ValueError:
+            redirect(URL(args=[1]))
+    if pagina <= 0:
+        pagina = 1
+    total = db((db.sistema.empresa_cliente==empresa_cliente.id)&(db.sistema.excluido==False)).count()
+    paginas = total//paginacao
+    if total%paginacao:
+        paginas+=1
+    if total==0:
+        paginas=1
+    if pagina > paginas:
+        redirect(URL(args=[paginas]))
+    limites = (paginacao*(pagina-1), (paginacao*pagina))
+    registros = db((db.sistema.empresa_cliente==empresa_cliente.id)&(db.sistema.excluido==False)).select(
+      limitby=limites,orderby=~db.sistema.id|db.sistema.id)
+    return dict(rows=registros, pagina=pagina, paginas=paginas, total=total, empresa_cliente=empresa_cliente, usuario=usuario)
+    return locals()
+
+@auth.requires_login()
+def cadastrar_sistema():
+    usuario = db.usuario_empresa(db.usuario_empresa.usuario==auth.user.id)
+    if 'Ana' in usuario.tipo:
+        redirect(URL('index'))
+    empresa =db.empresa(usuario.empresa)
+    empresa_cliente =db.empresa_cliente(usuario.empresa_cliente)
+    response.view = 'generic.html' # use a generic view
+    request.function='Cadastro de Sistema Cliente '
+    referencia = gerar_referencia()
+    db.sistema.referencia.default=referencia
+    db.sistema.empresa.default=usuario.empresa
+    db.sistema.excluido.writable=False
+    db.sistema.excluido.readable=False
+    db.sistema.empresa_cliente.default=usuario.empresa_cliente
+    db.sistema.empresa_cliente.writable=False
+    db.sistema.empresa_cliente.readable=False
+    form = SQLFORM(db.sistema).process()
+    if form.accepted:
+        verifica_possibilidade_validacao(form.vars.id)
+        redirect(URL('index'))
+    elif form.errors:
+        response.flash = 'Formulario não aceito'
+    return  dict(form=form)
+
+@auth.requires_login()
+def alterar_sistema():
+    
+    usuario = db.usuario_empresa(db.usuario_empresa.usuario==auth.user.id)
+    sistema = db.sistema(request.args(0, cast=int))
+    if sistema.empresa!=usuario.empresa:
+        redirect(URL('index'))
+    response.view = 'generic.html' # use a generic view
+    request.function='Alterar sistema'
+    if 'Admi' in usuario.tipo:
+        db.sistema.empresa_cliente.writable=True
+        db.sistema.empresa_cliente.readable=True
+        db.sistema.nome.writable=True
+        db.sistema.nome.readable=True
+        db.sistema.empresa_cliente.requires = IS_IN_DB(db((db.empresa_cliente.empresa==usuario.empresa)&(db.empresa_cliente.ativo==True)), 'empresa_cliente.id', '%(nome)s')
+    else:
+#         redirect(URL('index'))
+        db.sistema.empresa_cliente.writable=False
+        db.sistema.empresa_cliente.readable=True
+        db.sistema.nome.writable=False
+        db.sistema.nome.readable=True
+#     db.sistema.empresa_cliente.writable=True
+#     db.sistema.empresa_cliente.readable=True
+#     db.sistema.empresa_cliente.requires = IS_IN_DB(db((db.empresa_cliente.empresa==usuario.empresa)&(db.empresa_cliente.ativo==True)), 'empresa_cliente.id', '%(nome)s')
+    db.sistema.excluido.writable=False
+    db.sistema.excluido.readable=False
+    form = SQLFORM(db.sistema, request.args(0, cast=int), deletable=False)
+    if form.process().accepted:
+        verifica_possibilidade_validacao(form.vars.id)
+        redirect(URL('index'))
+    elif form.errors:
+        response.flash = 'Formulario não aceito'
+    return dict(form=form)
+
+
+def acessar_sistema():
+    usuario = db.usuario_empresa(db.usuario_empresa.usuario==auth.user.id)
+    sistema = db.sistema(request.args(0, cast=int))
+    if sistema.empresa!=usuario.empresa:
+        redirect(URL('index'))
+    return locals()

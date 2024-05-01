@@ -1,0 +1,38 @@
+{{extend 'layout.html'}}
+<div class="py-5" >
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h4 class="">{{=sistema.nome}}</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-bordered ">
+              <thead>
+                <tr>
+                  <th>Sigla</th>
+                  <th>Descrição</th>
+                  <th>Acessar</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {{for row in lista_registro_atividade:}}
+                <tr>
+                  <th>{{=row[6:12]}}</th>
+                  <td>{{=row[14:]}}</td>
+                  <td>
+                      <a class="" href="{{=URL('ctl_sistema','lista_registros',args=[sistema.id,row[:4]])}}">
+                          <i class="fa fa-fw fa-1x py-1 fa-folder-open  text-primary"></i>
+                      </a>
+                    </td>
+                </tr>
+                  {{pass}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

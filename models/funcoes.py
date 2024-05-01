@@ -39,6 +39,11 @@ def atualiza_nomes_usuarios(id_empresa):
         usuario = db.auth_user(row.usuario)
         row.nome=f'{usuario.first_name.upper()} {usuario.last_name.upper()}'
         row.update_record()
+    rows = db(db.usuario_empresa.nome==None).select()
+    for row in rows:
+        usuario = db.auth_user(row.usuario)
+        row.nome=f'{usuario.first_name.upper()} {usuario.last_name.upper()}'
+        row.update_record()
     return True
 
 

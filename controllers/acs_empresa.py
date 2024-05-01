@@ -9,8 +9,8 @@ def index():
     if usuario.ativo==False:
         redirect(URL('default','index'))
     empresa = db.empresa(usuario.empresa)
-    if not empresa: 
-        redirect(URL('acs_cliente','index'))
+    if usuario.empresa_cliente: 
+        redirect(URL('ctl_empresa','index'))
     liberado = False
     if len(request.args) == 1:
         liberado = True

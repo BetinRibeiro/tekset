@@ -108,7 +108,7 @@ def gerar_revisao_periodica(id_sistema):
         return False
     return True
 
-
+#antes da otimização
 # def total_atividade(id_empresa, tipo):
 #     rows = db(db.gestao_de_risco.empresa==None).select()
 #     for row in rows:

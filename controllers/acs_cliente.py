@@ -2,7 +2,13 @@
 
 @auth.requires_login()
 def index():
+#     response.view = 'generic.html' # use a generic view
     usuario = db.usuario_empresa(db.usuario_empresa.usuario==auth.user.id)
+    if not usuario.empresa:
+        empresa_cliente= db.empresa_cliente(usuario.empresa_cliente)
+        empresa = empresa_cliente.empresa
+        usuario.empresa=empresa.id
+        usuario.update_record()
     empresa =db.empresa(usuario.empresa)
     if usuario.ativo==False:
         redirect(URL('default','index'))
@@ -28,10 +34,11 @@ def index():
     registros = db((db.empresa_cliente.empresa==empresa.id)&(db.empresa_cliente.excluido==False)).select(
       limitby=limites,orderby=~db.empresa_cliente.id|db.empresa_cliente.nome)
     return dict(rows=registros, pagina=pagina, paginas=paginas, total=total, empresa=empresa, usuario=usuario)
+    return locals()
 
 @auth.requires_login()
 def cadastrar():
-    usuario = db.usuario_empresa(db.usuario_empresa.usuario==auth.user.id)   
+    usuario = db.usuario_empresa(db.usuario_empresa.usuario==auth.user.id)
     if not 'Admi' in usuario.tipo:
         redirect(URL('index'))
     empresa =db.empresa(usuario.empresa)
